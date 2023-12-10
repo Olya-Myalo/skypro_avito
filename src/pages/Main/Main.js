@@ -1,9 +1,12 @@
+import { useGetAdsQuery } from '../../Service/ServiceAds'
 import FooterMob from '../../components/FooterMob/FooterMob'
 import ListAds from '../../components/ListAds/ListAds'
 import SearchMain from '../../components/SearchMain/SearchMain'
 import * as S from './Main.styled'
 
 const Main = () => {
+  const { data, isLoading } = useGetAdsQuery()
+  console.log(data)
   return (
     <S.BodyMain>
       <S.WrapperMain>

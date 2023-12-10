@@ -1,12 +1,16 @@
+import { BrowserRouter as Router } from 'react-router-dom'
 import * as S from './App.styled'
-import Main from './pages/Main/Main'
-// import Signin from './pages/Signin/Signin'
-// import Signup from './pages/Signup/Signup'
+import AppRoutes from './routes'
+import React from 'react'
 
 function App() {
-  return <S.MainApp>
-    <Main />
-  </S.MainApp>
+  return (
+    <S.MainApp>
+      <Router>
+        <AppRoutes />
+      </Router>
+    </S.MainApp>
+  )
 }
 
 export default App
