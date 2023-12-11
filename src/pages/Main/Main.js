@@ -6,7 +6,9 @@ import * as S from './Main.styled'
 
 const Main = () => {
   const { data, isLoading } = useGetAdsQuery()
-  console.log(data)
+
+  if(isLoading) return <div>faerg</div>
+  console.log(isLoading, data)
   return (
     <S.BodyMain>
       <S.WrapperMain>
