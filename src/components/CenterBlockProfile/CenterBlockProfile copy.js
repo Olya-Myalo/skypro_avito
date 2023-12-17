@@ -20,8 +20,6 @@ const CenterBlockProfile = () => {
     phone: data?.phone,
   })
   const [changeAvatar] = useChangeAvatarMutation()
-  // const [image, setImage] = useState('')
-  // const [avatarUrl, setAvatarUrl] = useState('')
 
   const handleInputChange = (e) => {
     setUserData({
@@ -42,33 +40,11 @@ const CenterBlockProfile = () => {
   }
 
   const handleUploadImage = async (event) => {
-    let file = event.target.files?.[0];
-    console.log(file)
+    let file = event.target.files?.[0]
     if (file) {
       changeAvatar({ file });
     }
   };
-
-  // const uploadContent = (event) => {
-  //   event.preventDefault()
-  //   event.target.files[0] && setImage(event.target.files[0])
-  // }
-
-  // const sendContent = async (event) => {
-  //   event.preventDefault();
-  //   const formData = new FormData();
-  //   formData.append("file", image);
-  
-  //   try {
-  //     const response = await changeAvatar(formData);
-  //     setAvatarUrl(`http://localhost:8090/${response.data.avatar}`);
-  //     console.log(response.data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // FormData (инстапро)
 
   return (
     <S.MainCenterBlock>

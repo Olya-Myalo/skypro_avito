@@ -30,15 +30,17 @@ export const Api = createApi({
         body: userData,
       }),
     }),
-    changeAvatar: builder.mutation((fileData) => {
-      const formData = new FormData();
-      formData.append("file", fileData.file);
-    
-      return {
-        url: "/user/avatar",
-        method: "POST",
-        body: formData,
-      };
+    changeAvatar: builder.mutation({
+      query: (fileData) => {
+        const formData = new FormData()
+        formData.append("file", fileData.file)
+
+        return {
+          url: "/user/avatar",
+          method: "POST",
+          body: formData,
+        }
+      }
     }),
     refreshToken: builder.mutation({
       query: ({ access_token, refresh_token }) => ({
