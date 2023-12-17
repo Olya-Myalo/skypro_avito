@@ -1,25 +1,35 @@
 module.exports = {
     "env": {
-      "browser": true,
-      "es2021": true
+        "browser": true,
+        "es2021": true
     },
     "extends": [
-      "plugin:react/recommended",
-      "prettier",
-      "plugin:react/jsx-runtime"
+        "eslint:recommended",
+        "plugin:react/recommended"
+    ],
+    "overrides": [
+        {
+            "env": {
+                "node": true
+            },
+            "files": [
+                ".eslintrc.{js,cjs}"
+            ],
+            "parserOptions": {
+                "sourceType": "script"
+            }
+        }
     ],
     "parserOptions": {
-      "ecmaFeatures": {
-        "jsx": true
-      },
-      "ecmaVersion": "latest",
-      "sourceType": "module"
+        "ecmaVersion": "latest",
+        "sourceType": "module"
     },
-    "plugins": ["react"],
+    "plugins": [
+        "react"
+    ],
     "rules": {
-      "import/prefer-default-export": "off",
-      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-      "react/prop-types": 0,
-      "react/destructuring-assignment": [0]
+        'react/prop-types': 'off',
+        'react/react-in-jsx-scope': 'off',
+
     }
-  }
+}

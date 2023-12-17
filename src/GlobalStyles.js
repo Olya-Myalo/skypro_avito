@@ -35,6 +35,7 @@ const GlobalStyles = createGlobalStyle`
     height: 100%;
     font-family: "Roboto", sans-serif;
     color: #000000;
+    background-color: #f1f1f1;
   }
   
   div,
