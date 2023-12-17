@@ -2,11 +2,15 @@ import * as S from './Profile.styled'
 import Footer from '../../components/Footer/Footer'
 import Header from '../../components/Header/Header'
 import CenterBlockProfile from '../../components/CenterBlockProfile/CenterBlockProfile copy'
-import AdsComponent from '../../components/AdsComponent/AdsComponent'
+import AdsComponentUser from '../../components/AdsComponent/AdsComponentUser'
+import { useGetAdsUserQuery } from '../../store/Service/Service'
 
 const Profile = () => {
-const profileKey = true
-  //сделать запрос на получение списка для юзера
+  const { data, isLoading } = useGetAdsUserQuery()
+  console.log(data, isLoading)
+  if (isLoading) return <div>hujh</div>
+  const profileKey = true
+
   return (
     <S.Wrapper>
       <S.Container>
@@ -15,7 +19,7 @@ const profileKey = true
           <CenterBlockProfile />
           <S.MainContent>
             <S.ContentCards>
-              <AdsComponent />
+              <AdsComponentUser data={data} />
             </S.ContentCards>
           </S.MainContent>
         </S.MainContainer>

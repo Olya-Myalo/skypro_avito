@@ -23,6 +23,9 @@ export const Api = createApi({
     getUserInfo: builder.query({
       query: () => `user`,
     }),
+    getAdsUser: builder.query({
+      query: () => `ads/me`,
+    }),
     userUpdate: builder.mutation({
       query: (userData) => ({
         url: 'user',
@@ -68,5 +71,6 @@ export const {
   useGetUserInfoQuery,
   useRefreshTokenMutation,
   useUserUpdateMutation,
-  useChangeAvatarMutation
+  useChangeAvatarMutation,
+  useGetAdsUserQuery
 } = Api
