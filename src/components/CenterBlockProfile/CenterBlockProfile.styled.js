@@ -84,7 +84,6 @@ export const SettingsLeft = styled.div`
   }
 `
 
-
 export const SettingsImg = styled.div`
   width: 170px;
   height: 170px;
@@ -98,14 +97,16 @@ export const SettingsImg = styled.div`
 `
 
 export const SettingImgImg = styled.img`
-  width: 100%;
-  height: auto;
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  background-color: #f0f0f0;
   display: block;
   -o-object-fit: cover;
   object-fit: cover;
   @media screen and (max-width: ${maxMobileWidthTwo}) {
-    width: 100%;
-    height: auto;
+    width: 132px;
+    height: 132px;
     display: block;
     -o-object-fit: cover;
     object-fit: cover;
@@ -119,7 +120,6 @@ export const SettingsChangePhoto = styled.label`
   line-height: 24px;
   color: #009ee4;
 `
-
 
 export const SettingsRight = styled.div`
   width: 630px;
@@ -146,7 +146,6 @@ export const SettingsDiv = styled.div`
     margin: 0 0px 18px;
   }
 `
-
 
 export const Label = styled.label`
   font-size: 16px;

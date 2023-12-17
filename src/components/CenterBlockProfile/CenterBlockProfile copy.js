@@ -20,6 +20,7 @@ const CenterBlockProfile = () => {
     phone: data?.phone,
   })
   const [changeAvatar] = useChangeAvatarMutation()
+  const [avatarUrl, setAvatarUrl] = useState(data?.avatar)
 
   const handleInputChange = (e) => {
     setUserData({
@@ -39,12 +40,24 @@ const CenterBlockProfile = () => {
     }
   }
 
-  const handleUploadImage = async (event) => {
+  const handleImageChange = (event) => {
     let file = event.target.files?.[0]
     if (file) {
-      changeAvatar({ file });
+      setAvatarUrl(URL.createObjectURL(file))
     }
-  };
+  }
+
+  const handleUploadImage = async () => {
+    if (avatarUrl) {
+      const formData = new FormData()
+      formData.append('file', avatarUrl)
+      try {
+        await changeAvatar({ file: formData })
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  }
 
   return (
     <S.MainCenterBlock>
@@ -54,30 +67,25 @@ const CenterBlockProfile = () => {
         <S.ProfileContent>
           <S.ProfileTitle>Настройки профиля</S.ProfileTitle>
           <S.ProfileSettings>
-            <S.SettingsLeft>
-            {data?.avatar ? (
-              <S.SettingsImg>
-                    <S.SettingImgImg
-                      alt=""
-                      src={`http://127.0.0.1:8090/${data.avatar}`}
-                    ></S.SettingImgImg>
-                    </S.SettingsImg>
-                  ) : (
-                    <S.SettingsImg>
-                    <S.SettingImgImg></S.SettingImgImg>
-                    </S.SettingsImg>
-                  )}
+            <S.SettingsLeft action="#" onSubmit={handleUploadImage}>
+              {avatarUrl ? (
+                <S.SettingsImg>
+                  <S.SettingImgImg alt="" src={avatarUrl} />
+                </S.SettingsImg>
+              ) : (
+                <S.SettingsImg>
+                  <S.SettingImgImg />
+                </S.SettingsImg>
+              )}
 
-                  <S.SettingsChangePhoto>
-                    Заменить
-                    <input
-                      type="file"
-                      hidden
-                      onChange={(e) => {
-                        handleUploadImage(e);
-                      }}
-                    />
-                  </S.SettingsChangePhoto>
+              <S.SettingsChangePhoto>
+                Заменить
+                <input
+                  type="file"
+                  hidden
+                  onChange={(e) => handleImageChange(e)}
+                />
+              </S.SettingsChangePhoto>
             </S.SettingsLeft>
             <S.SettingsRight>
               <S.SettingForm action="#" onSubmit={handleSubmit}>
@@ -128,7 +136,6 @@ const CenterBlockProfile = () => {
                 <S.SettingBtn
                   id="settings-btn"
                   type="submit"
-                  // onClick={() => handleSubmit()}
                 >
                   Сохранить
                 </S.SettingBtn>
