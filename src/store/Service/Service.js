@@ -34,16 +34,11 @@ export const Api = createApi({
       }),
     }),
     changeAvatar: builder.mutation({
-      query: (fileData) => {
-        const formData = new FormData()
-        formData.append("file", fileData.file)
-
-        return {
+      query: (fileData) => ({
           url: "/user/avatar",
           method: "POST",
-          body: formData,
-        }
-      }
+          body: fileData,
+      }),
     }),
     refreshToken: builder.mutation({
       query: ({ access_token, refresh_token }) => ({

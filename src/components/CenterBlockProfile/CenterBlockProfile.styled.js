@@ -70,7 +70,7 @@ export const ProfileSettings = styled.div`
     flex-wrap: wrap;
   }
 `
-export const SettingsLeft = styled.div`
+export const SettingsLeft = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -2,14 +2,14 @@ import { Link } from 'react-router-dom'
 import * as S from './AdsComponent.styled'
 import { formatDateAndTime } from '../../utils/formatDate'
 
-const AdsComponentUser = ({ data }) => {
-  if (!data) {
+const AdsComponentUser = ({ adsMe }) => {
+  if (!adsMe) {
     return <h2>Ничего не найдено</h2>
   }
 
   return (
     <>
-      {data.map((ad, index) => (
+      {adsMe.map((ad, index) => (
         <Link to={`/ad/${ad.id}`} key={index}>
           <S.CardsItem>
             <S.CardsCard>

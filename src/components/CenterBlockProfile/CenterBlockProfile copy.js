@@ -1,26 +1,28 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   useChangeAvatarMutation,
-  useGetUserInfoQuery,
   useUserUpdateMutation,
 } from '../../store/Service/Service'
 import MainMenu from '../MainMenu/MainMenu'
 import * as S from './CenterBlockProfile.styled'
 
-const CenterBlockProfile = () => {
-  const { data, isLoading } = useGetUserInfoQuery()
-  console.log(data, isLoading)
-  if (isLoading) return <div>hujh</div>
-
+const CenterBlockProfile = ({ infoUser }) => {
   const [UpdateUser] = useUserUpdateMutation()
   const [userData, setUserData] = useState({
-    name: data?.name,
-    surname: data?.surname,
-    city: data?.city,
-    phone: data?.phone,
+    name: infoUser?.name,
+    surname: infoUser?.surname,
+    city: infoUser?.city,
+    phone: infoUser?.phone,
+    avatar: infoUser?.avatar,
   })
   const [changeAvatar] = useChangeAvatarMutation()
-  const [avatarUrl, setAvatarUrl] = useState(data?.avatar)
+  const [avatarUrl, setAvatarUrl] = useState('')
+
+  useEffect(() => {
+    avatarUrl === null
+      ? setAvatarUrl('../img/profileImg.jpg')
+      : setAvatarUrl(`http://localhost:8090/${userData.avatar}`)
+  }, [userData])
 
   const handleInputChange = (e) => {
     setUserData({
@@ -43,19 +45,23 @@ const CenterBlockProfile = () => {
   const handleImageChange = (event) => {
     let file = event.target.files?.[0]
     if (file) {
-      setAvatarUrl(URL.createObjectURL(file))
-    }
-  }
-
-  const handleUploadImage = async () => {
-    if (avatarUrl) {
-      const formData = new FormData()
-      formData.append('file', avatarUrl)
-      try {
-        await changeAvatar({ file: formData })
-      } catch (error) {
-        console.log(error)
+      setAvatarUrl(file)
+      const reader = new FileReader()
+      reader.onload = function () {
+        console.log(reader.result)
+        fetch(reader.result)
+          .then((res) => res.blob())
+          .then((blob) => {
+            const formData = new FormData()
+            formData.append('file', blob, 'img.gpg')
+            return changeAvatar(formData)
+          })
+          .then((user) => {
+            console.log(user)
+            setUserData(user.data)
+          })
       }
+      reader.readAsDataURL(file)
     }
   }
 
@@ -67,17 +73,8 @@ const CenterBlockProfile = () => {
         <S.ProfileContent>
           <S.ProfileTitle>Настройки профиля</S.ProfileTitle>
           <S.ProfileSettings>
-            <S.SettingsLeft action="#" onSubmit={handleUploadImage}>
-              {avatarUrl ? (
-                <S.SettingsImg>
-                  <S.SettingImgImg alt="" src={avatarUrl} />
-                </S.SettingsImg>
-              ) : (
-                <S.SettingsImg>
-                  <S.SettingImgImg />
-                </S.SettingsImg>
-              )}
-
+            <S.SettingsLeft action="#">
+              <S.SettingImgImg alt="" src={avatarUrl} />
               <S.SettingsChangePhoto>
                 Заменить
                 <input
@@ -133,10 +130,7 @@ const CenterBlockProfile = () => {
                     placeholder="+79161234567"
                   />
                 </S.SettingsDiv>
-                <S.SettingBtn
-                  id="settings-btn"
-                  type="submit"
-                >
+                <S.SettingBtn id="settings-btn" type="submit">
                   Сохранить
                 </S.SettingBtn>
               </S.SettingForm>
