@@ -48,7 +48,6 @@ const CenterBlockProfile = ({ infoUser }) => {
       setAvatarUrl(file)
       const reader = new FileReader()
       reader.onload = function () {
-        console.log(reader.result)
         fetch(reader.result)
           .then((res) => res.blob())
           .then((blob) => {
@@ -57,7 +56,6 @@ const CenterBlockProfile = ({ infoUser }) => {
             return changeAvatar(formData)
           })
           .then((user) => {
-            console.log(user)
             setUserData(user.data)
           })
       }
