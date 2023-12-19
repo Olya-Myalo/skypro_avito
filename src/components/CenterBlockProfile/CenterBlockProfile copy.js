@@ -13,7 +13,6 @@ const CenterBlockProfile = ({ infoUser }) => {
     surname: infoUser?.surname,
     city: infoUser?.city,
     phone: infoUser?.phone,
-    avatar: infoUser?.avatar,
   })
   const [changeAvatar] = useChangeAvatarMutation()
   const [avatarUrl, setAvatarUrl] = useState('')
@@ -21,12 +20,12 @@ const CenterBlockProfile = ({ infoUser }) => {
   useEffect(() => {
     avatarUrl === null
       ? setAvatarUrl('../img/profileImg.jpg')
-      : setAvatarUrl(`http://localhost:8090/${userData.avatar}`)
+      : setAvatarUrl(`http://localhost:8090/${infoUser?.avatar}`)
   }, [userData])
 
   const handleInputChange = (e) => {
     setUserData({
-      ...userData,
+      ...userData.data,
       [e.target.name]: e.target.value,
     })
   }
@@ -66,7 +65,7 @@ const CenterBlockProfile = ({ infoUser }) => {
   return (
     <S.MainCenterBlock>
       <MainMenu />
-      <S.MainH2>Здравствуйте, {userData.name}!</S.MainH2>
+      <S.MainH2>Здравствуйте, {userData?.name}!</S.MainH2>
       <S.MainProlile>
         <S.ProfileContent>
           <S.ProfileTitle>Настройки профиля</S.ProfileTitle>
@@ -90,7 +89,7 @@ const CenterBlockProfile = ({ infoUser }) => {
                     id="settings-fname"
                     name="name"
                     type="text"
-                    value={userData.name}
+                    value={userData?.name}
                     onChange={handleInputChange}
                     placeholder=""
                   />
@@ -101,7 +100,7 @@ const CenterBlockProfile = ({ infoUser }) => {
                     id="settings-lname"
                     name="surname"
                     type="text"
-                    value={userData.surname}
+                    value={userData?.surname}
                     onChange={handleInputChange}
                     placeholder=""
                   />
@@ -112,7 +111,7 @@ const CenterBlockProfile = ({ infoUser }) => {
                     id="settings-city"
                     name="city"
                     type="text"
-                    value={userData.city}
+                    value={userData?.city}
                     onChange={handleInputChange}
                     placeholder=""
                   />
@@ -123,7 +122,7 @@ const CenterBlockProfile = ({ infoUser }) => {
                     id="settings-phone"
                     name="phone"
                     type="tel"
-                    value={userData.phone}
+                    value={userData?.phone}
                     onChange={handleInputChange}
                     placeholder="+79161234567"
                   />
