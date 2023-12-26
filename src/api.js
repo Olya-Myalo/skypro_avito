@@ -1,7 +1,7 @@
-const PATH = "http://localhost:8090";
+const baseURL = "http://localhost:8090";
 
-export async function loginUser(email, password) {
-  const response = await fetch(`${PATH}/auth/login`, {
+export async function getSignIn(email, password) {
+  const response = await fetch(`${baseURL}/auth/login`, {
     method: 'POST',
     body: JSON.stringify({
       email: email,
@@ -27,9 +27,9 @@ export async function loginUser(email, password) {
 }
 
   
-export async function registerUser(email, password, name, surname, city) {
+export async function getSignUp(email, password, name, surname, city) {
 
-    const response = await fetch(`${PATH}/auth/register`, {
+    const response = await fetch(`${baseURL}/auth/register`, {
       method: 'POST',
       body: JSON.stringify({
         email: email,

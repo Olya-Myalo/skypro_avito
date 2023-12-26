@@ -11,12 +11,9 @@ function getAuthFromLocalStorage() {
 }
 
 const initialState = {
-  id: 0,
-  email: "",
-  access: "",
-  refresh: "",
-  first_name: "",
-  last_name: "",
+  access: '',
+  refresh: '',
+  user: [],
 };
 
 const authSlice = createSlice({
@@ -26,15 +23,12 @@ const authSlice = createSlice({
     setAuth(state, action) {
       const payload = action.payload ?? initialState;
 
-      state.id = payload.id;
-      state.email = payload.email;
-      state.username = payload.username;
-      state.access = payload.access;
-      state.refresh = payload.refresh;
-
+      state.access = payload.access
+      state.refresh = payload.refresh
+      state.user = payload.user
       localStorage.setItem(AUTH_KEY, JSON.stringify(state));
     },
   },
 });
 export const { setAuth } = authSlice.actions;
-export const authReducer = authSlice.reducer;
+export default authSlice.reducer;

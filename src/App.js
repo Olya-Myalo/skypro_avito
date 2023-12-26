@@ -1,29 +1,17 @@
-import { useEffect } from 'react'
 import * as S from './App.styled'
 import AppRoutes from './routes'
-import { useRefreshTokenMutation } from './store/Service/Service'
+import { UserContext } from './context'
+import { useState } from 'react'
 
 function App() {
-  const [refreshToken] = useRefreshTokenMutation()
-
-  const handleRefreshToken = () => {
-    refreshToken({
-      access_token: localStorage.getItem('access_token'),
-      refresh_token: localStorage.getItem('refresh_token'),
-    })
-  }
-
-  useEffect(() => {
-    handleRefreshToken()
-  }, [])
-
-  const token = localStorage.getItem('access_token')
-  console.log('текущий токен', token)
+  const [user, setUser] = useState(localStorage.getItem('user') || null)
 
   return (
-    <S.MainApp>
-      <AppRoutes />
-    </S.MainApp>
+    <UserContext.Provider value={user}>
+        <S.MainApp>
+          <AppRoutes user={user} setUser={setUser} />
+        </S.MainApp>
+    </UserContext.Provider>
   )
 }
 

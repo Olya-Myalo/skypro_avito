@@ -1,50 +1,76 @@
 import { useState } from 'react'
 import * as S from './Signup.styled'
-import { registerUser } from '../../api'
+import { getSignUp } from '../../api'
 import { useNavigate } from 'react-router-dom'
+// import { useAccessTokenUserMutation } from '../../store/Service/token'
+// import { setAuth } from '../../store/slices/auth'
+// import { useDispatch } from 'react-redux'
 
-const Signup = () => {
-  const [name, setName] = useState('')
+const Signup = ({ setUser }) => {
+  const [error, setError] = useState(null)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [repeatPassword, setRepeatPassword] = useState('')
+  const [name, setName] = useState('')
   const [surname, setSurname] = useState('')
   const [city, setCity] = useState('')
-  const [passwordTwo, setPasswordTwo] = useState('')
-  const [errorMessage, setErrorMessage] = useState(null)
+  // const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
+  // const [postToken] = useAccessTokenUserMutation()
 
-    if (!email || !password || !passwordTwo) {
-      setErrorMessage('Заполните обязательные поля')
+  // const responseToken = async () => {
+  //   try {
+  //     const token = await postToken({ email, password }).unwrap()
+  //     dispatch(
+  //       setAuth({
+  //         access: token.access,
+  //         refresh: token.refresh,
+  //         user: JSON.parse(localStorage.getItem('user')),
+  //       }),
+  //     )
+  //   } catch (error) {
+  //     console.error('Ошибка при получении токена:', error.message)
+  //     setError(error.message)
+  //   }
+  // }
+
+  const handleRegister = async () => {
+    if (!name || !email || !password || !repeatPassword) {
+      setError('Заполните все поля')
       return
     }
-    if (password !== passwordTwo) {
-      setErrorMessage('Пароли не совпадают')
+    if (password !== repeatPassword) {
+      setError('Пароли не совпадают')
       return
     }
-
     try {
-      const response = await registerUser(email, password, name, surname, city)
-      console.log('Registration successful:', response)
-      navigate('/login')
+      const response = await getSignUp( email, password, name, surname, city )
+      setUser(response)
+      localStorage.setItem('user', JSON.stringify(response))
+      localStorage.setItem('email', email);
+      localStorage.setItem('access_token', response.access_token);
+      localStorage.setItem('refresh_token', response.refresh_token);
+      navigate('/')
+      setError(null)
     } catch (error) {
-      console.log('Registration error:', error)
-      setErrorMessage(error.message)
+      console.error('Ошибка при регистрации:', error.message)
+      setError(error.message)
     }
   }
+
+  // useEffect(() => {
+  //   setError(null)
+  // }, [email, password, repeatPassword, name, surname, city])
 
   return (
     <S.Wrapper>
       <S.ContainerSignup>
         <S.ModalBlock>
-          <S.ModalFormLogin onSubmit={handleSubmit}>
+          <S.ModalFormLogin onSubmit={handleRegister}>
             <S.ModalLogo>
               <S.ModalLogoImg src="../img/logo-reg.png" alt="logo" />
             </S.ModalLogo>
-            {/* {isError && error && <S.Div>{error.message}</S.Div>} */}
-
             <S.ModalInput
               type="text"
               name="login"
@@ -64,7 +90,7 @@ const Signup = () => {
               name="password"
               id="passwordSecond"
               placeholder="Повторите пароль"
-              onChange={(e) => setPasswordTwo(e.target.value)}
+              onChange={(e) => setRepeatPassword(e.target.value)}
             />
             <S.ModalInput
               type="text"
@@ -87,7 +113,7 @@ const Signup = () => {
               placeholder="Город (необязательно)"
               onChange={(e) => setCity(e.target.value)}
             />
-            <S.ErrorDiv>{errorMessage}</S.ErrorDiv>
+            <S.ErrorDiv>{error}</S.ErrorDiv>
 
             <S.ModalBtnSignupEnt>
               <S.ModalBtnLink>Зарегистрироваться</S.ModalBtnLink>

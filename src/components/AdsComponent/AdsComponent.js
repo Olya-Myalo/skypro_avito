@@ -1,16 +1,16 @@
 import { Link } from 'react-router-dom'
 import * as S from './AdsComponent.styled'
-import { useSelector } from 'react-redux'
+// import { useSelector } from 'react-redux'
 
-const AdsComponent = () => {
-  const ads = useSelector((state) => state.user.ads)
+const AdsComponent = ({products}) => {
+  // const ads = useSelector((state) => state.user.ads)
   // console.log('АДС', ads)
 
-  if (!ads) return <div>Loading</div>
+  if (!products) return <div>Loading</div>
 
   return (
     <>
-      {ads.map((ad, index) => (
+      {products.map((ad, index) => (
         //ad.id соответствует id обьявления
         <Link to={`/ad/${ad.id}`} key={index}> {/* Создаем ссылку на новую страницу */}
           <S.CardsItem>

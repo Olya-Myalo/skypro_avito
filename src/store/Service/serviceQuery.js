@@ -1,16 +1,71 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-export const Api = createApi({
-  reducerPath: 'Api',
-  baseQuery: fetchBaseQuery({
+import { setAuth } from '../slices/auth'
+
+const baseQueryWithReauth = async (args, api, extraOptions) => {
+  const baseQuery = fetchBaseQuery({
     baseUrl: 'http://localhost:8090/',
-    prepareHeaders: (headers) => {
-      const token = localStorage.getItem('access_token')
+    prepareHeaders: (headers, { getState }) => {
+      const token = getState().auth.access
+      // console.debug('Использую токен из стора', { token })
       if (token) {
-        headers.set('Authorization', `Bearer ${token}`)
+        headers.set('authorization', `Bearer ${token}`)
       }
+
       return headers
     },
-  }),
+  })
+
+  const result = await baseQuery(args, api, extraOptions)
+  // console.debug('Результат первого запроса', { result })
+
+  if (result?.error?.status !== 401) {
+    return result
+  }
+
+  const forceLogout = () => {
+    console.debug('Принудительная авторизация!')
+    api.dispatch(setAuth(null))
+    window.location.navigate('/signin')
+  }
+
+  const { auth } = api.getState()
+  // console.debug('Данные пользователя в сторе', { auth })
+  if (!auth.refresh) {
+    return forceLogout()
+  }
+  const refreshResult = await baseQuery(
+    () => ({
+      url: 'auth/login',
+      method: 'PUT',
+      body: { access: auth.access, refresh: auth.refresh },
+    }),
+    api,
+    extraOptions,
+  )
+
+  // console.debug('Результат запроса на обновление токена', { refreshResult })
+
+  if (!refreshResult.data.access) {
+    return forceLogout()
+  }
+
+  api.dispatch(setAuth({ ...auth, access: refreshResult.data.access }))
+  const retryResult = await baseQuery(args, api, extraOptions)
+
+  if (retryResult?.error?.status === 401) {
+    return forceLogout()
+  }
+
+  // console.debug('Повторный запрос завершился успешно')
+
+  return retryResult
+}
+
+export const Api = createApi({
+  reducerPath: 'Api',
+  baseQuery: baseQueryWithReauth,
+  tagTypes: ['Ads'],
+
   endpoints: (builder) => ({
     getAds: builder.query({
       query: () => 'ads',
@@ -22,14 +77,28 @@ export const Api = createApi({
             ]
           : [{ type: 'Ads', id: 'LIST' }],
     }),
+
     getAdsId: builder.query({
       query: (adId) => `ads/${adId}`,
+      providesTags: ['Ads'],
     }),
     getUserInfo: builder.query({
       query: () => `user`,
+      providesTags: ['Ads'],
     }),
     getAdsUser: builder.query({
       query: () => `ads/me`,
+      providesTags: ['Ads'],
+    }),
+    getAllCurrentUserComments: builder.query({
+      query: (id) => `ads/${id}/comments`,
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ id }) => ({ type: 'Ads', id })),
+              { type: 'Ads', id: 'LIST' },
+            ]
+          : [{ type: 'Ads', id: 'LIST' }],
     }),
     getAllComments: builder.query({
       query: () => 'comments',
@@ -43,42 +112,17 @@ export const Api = createApi({
       }),
       invalidatesTags: [{ type: 'Ads', id: 'LIST' }],
     }),
-    getAllCurrentUserComments: builder.query({
-      query: (id) => `ads/${id}/comments`,
-      providesTags: (result) =>
-        result
-          ? [
-              ...result.map(({ id }) => ({ type: 'Ads', id })),
-              { type: 'Ads', id: 'LIST' },
-            ]
-          : [{ type: 'Ads', id: 'LIST' }],
-    }),
-    refreshToken: builder.mutation({
-      query: ({ access_token, refresh_token }) => ({
-        url: 'auth/login',
-        method: 'PUT',
-        body: { access_token, refresh_token },
-      }),
-      onError: (error) => {
-        console.error('Error refreshing token:', error)
-        return { error: 'Token refresh failed' }
-      },
-      transformResponse: (response) => {
-        localStorage.setItem('access_token', response.access_token)
-        localStorage.setItem('refresh_token', response.refresh_token)
-        return response
-      },
-    }),
     addAds: builder.mutation({
       query: ({ title, description, price }) => ({
         url: `ads?title=${encodeURIComponent(
-          title
+          title,
         )}&description=${encodeURIComponent(
-          description
+          description,
         )}&price=${encodeURIComponent(price)}`,
         method: 'POST',
         body: 'file',
       }),
+      invalidatesTags: ['Ads'],
     }),
     editAds: builder.mutation({
       query: ({ title, description, price, id }) => ({
@@ -90,6 +134,7 @@ export const Api = createApi({
           price: price,
         },
       }),
+      invalidatesTags: ['Ads'],
     }),
     addImgAds: builder.mutation({
       query: ({ id, file }) => ({
@@ -97,6 +142,7 @@ export const Api = createApi({
         method: 'POST',
         body: file,
       }),
+      invalidatesTags: ['Ads'],
     }),
 
     delImgAds: builder.mutation({
@@ -113,6 +159,7 @@ export const Api = createApi({
       query: ({ adId }) => {
         return { url: `ads/${adId}`, method: 'DELETE' }
       },
+      invalidatesTags: ['Ads'],
     }),
     userUpdate: builder.mutation({
       query: (userData) => ({
@@ -124,15 +171,15 @@ export const Api = createApi({
     }),
     changeAvatar: builder.mutation({
       query: (fileData) => ({
-          url: "/user/avatar",
-          method: "POST",
-          body: fileData,
+        url: '/user/avatar',
+        method: 'POST',
+        body: fileData,
       }),
       invalidatesTags: ['Ads'],
     }),
   }),
 })
-  
+
 export const {
   useGetAdsQuery,
   useGetAdsIdQuery,
@@ -148,5 +195,6 @@ export const {
   useDelAdsIdMutation,
   useUserUpdateMutation,
   useChangeAvatarMutation,
-  useGetAdsUserQuery
+  useGetAdsUserQuery,
+  useGetTokenQuery,
 } = Api
