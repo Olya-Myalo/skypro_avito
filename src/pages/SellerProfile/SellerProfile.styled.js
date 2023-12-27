@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 const maxMobileWidth = '890px'
 const maxMobileWidthTwo = '620px'
-// const maxMobileWidthThree = '1158px'
 
 export const Wrapper = styled.div`
   width: 100%;

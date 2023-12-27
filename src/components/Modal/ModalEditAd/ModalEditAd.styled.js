@@ -4,6 +4,15 @@ export const Wrapper = styled.div`
   width: 100%;
   min-height: 100%;
   overflow: hidden;
+    position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
 `
 
 export const Container = styled.div`
@@ -89,8 +98,8 @@ export const ModalTitle = styled.h3`
     &:before {
       content: '';
       display: block;
-      width: 12px;
-      height: 12px;
+      width: 15px;
+      height: 15px;
       background-color: transparent;
       border-top: 2px solid #000000;
       border-left: 2px solid #000000;
@@ -98,7 +107,7 @@ export const ModalTitle = styled.h3`
       transform: rotate(-45deg);
       position: absolute;
       top: 77px;
-      left: 20px;
+      left: 30px;
       cursor: pointer;
     }
   }
@@ -110,8 +119,8 @@ export const ModalTitle = styled.h3`
     &:before {
       content: '';
       display: block;
-      width: 15px;
-      height: 15px;
+      width: 12px;
+      height: 12px;
       background-color: transparent;
       border-top: 2px solid #000000;
       border-left: 2px solid #000000;
@@ -119,7 +128,7 @@ export const ModalTitle = styled.h3`
       transform: rotate(-45deg);
       position: absolute;
       top: 9px;
-      left: -51px;
+      left: -67px;
       cursor: pointer;
     }
   }
@@ -427,6 +436,7 @@ export const FormNewArtBarImgCover = styled.div`
   left: 0;
   background-color: #f0f0f0;
   z-index: -1;
+  cursor: pointer;
   &::after {
     content: '';
     position: absolute;
@@ -458,14 +468,14 @@ export const FormNewArtImg = styled.div`
   z-index: 0;
   @media screen and (max-width: 600px) {
     display: block;
-    width: 90px;
+    width: 100px;
     min-width: 90px;
     height: 90px;
     background-color: #f0f0f0;
     margin: 0 5px;
   }
 `
-export const FormNewArtImgImg = styled.div`
+export const FormNewArtImgImg = styled.img`
   display: block;
   width: 100%;
   height: auto;
@@ -606,4 +616,28 @@ export const FormNewArtBtnPub = styled.button`
       background-color: #0080c1;
     }
   }
+`
+export const FormNewArtImgImg2 =styled.img`
+    width: 90px;
+    height: 90px;
+`
+export const DeleteImageBtnDiv = styled.div`
+ 
+`;
+
+export const DeleteImageBtn = styled.button`
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+  color: black;
+  font-weight: 700;
+  z-index: 2;
+  &:hover {
+    scale: 1.1;
+  }
+  
 `

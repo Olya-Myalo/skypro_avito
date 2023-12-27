@@ -1,9 +1,17 @@
 import { styled } from 'styled-components'
 
 export const Wrapper = styled.div`
-  width: 100%;
-  min-height: 100%;
-  overflow: hidden;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.5); /* Прозрачный серый фон */
+display: flex;
+justify-content: center;
+align-items: center;
+overflow-x: hidden;
+overflow-y: scroll;
 `
 
 export const Container = styled.div`
@@ -14,7 +22,7 @@ export const Container = styled.div`
   background-color: #f4f5f6;
   @media screen and (max-width: 600px) {
     background-color: #ffffff;
-  }
+  
 `
 
 export const ModalBlock = styled.div`
@@ -26,10 +34,12 @@ export const ModalBlock = styled.div`
   top: 20px;
   opacity: 1;
 
+
+
   @media screen and (max-width: 600px) {
     position: absolute;
     z-index: 1;
-    left: -10px;
+    left: -179px;
     top: 55px;
     opacity: 1;
   }
@@ -66,6 +76,7 @@ export const ModalContent = styled.div`
     width: 100%;
     min-width: 320px;
     height: auto;
+    border-radius: 0px;
     padding: 0 20px 0;
   }
 `
@@ -101,7 +112,7 @@ export const ModalTitle = styled.h3`
     font-size: 24px;
     line-height: 29px;
     position: relative;
-    left: -20px;
+    left: 10px;
     &:before {
       content: '';
       display: block;
@@ -181,10 +192,9 @@ export const ModalScroll = styled.div`
   -ms-flex-align: start;
   align-items: flex-start;
   width: 100%;
-  overflow-y: auto;
-  scrollbar-color: #ffffff #2e2e2e;
-  scrollbar-width: thin;
-  scrollbar-width: 0px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+ 
   &::-webkit-scrollbar {
     width: 0px;
     background-color: #ffffff;
@@ -350,10 +360,10 @@ export const ReviewsReview = styled.div`
   display: flex;
   -webkit-box-align: center;
   -ms-flex-align: center;
-  align-items: center;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
-  justify-content: center;
+  flex-direction: column;
+  gap: 30px;
   margin: 15px 0;
 `
 
@@ -403,6 +413,15 @@ export const ReviewName = styled.p`
   line-height: 32px;
   color: #000000;
 `
+export const ReviewNameSpan = styled.span`
+  margin-left: 10px;
+  color: #5f5f5f;
+  @media screen and (max-width: 600px) {
+    font-size: 14px;
+    line-height: 28px;
+    color: #5f5f5f;
+  }
+`;
 
 export const ReviewTitle = styled.h5`
   font-weight: 600;
@@ -416,4 +435,16 @@ export const ReviewText = styled.p`
   font-size: 16px;
   line-height: 24px;
   color: #000000;
+`
+export const Error = styled.div`
+  color: black;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  margin-top: 20px;
+  height: 300px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `

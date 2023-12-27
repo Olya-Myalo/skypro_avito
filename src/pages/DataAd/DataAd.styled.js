@@ -111,7 +111,7 @@ export const ArticleFillImg = styled.div`
 `
 
 export const ArticleImg = styled.div`
-  width: 480px;
+width: 100%;
   height: 480px;
   background-color: #f0f0f0;
   margin: 0 5px;
@@ -127,10 +127,15 @@ export const ArticleImg = styled.div`
 
 export const ArticleImgImg = styled.img`
   width: 100%;
-  height: auto;
+  height: 480px;
   display: block;
+  background-color: white;
   -o-object-fit: cover;
   object-fit: cover;
+  cursor: pointer;
+  &.selected {
+    border: 2px solid #009ee4;
+  }
 `
 
 export const ArticleImgBar = styled.div`
@@ -162,7 +167,7 @@ export const ArticleImgBarDiv = styled.div`
 `
 export const ArticleImgBarDivImg = styled.img`
   width: 100%;
-  height: auto;
+  height: 88px;
   display: block;
   -o-object-fit: cover;
   object-fit: cover;
@@ -433,45 +438,7 @@ export const MainContent = styled.div`
 `
 
 export const MainText = styled.p`
-font-size: 16px;
-line-height: 24px;
-color: #000000;
+  font-size: 16px;
+  line-height: 24px;
+  color: #000000;
 `
-
-// export const Container2 = styled.div`
-
-// `
-// export const Container2 = styled.div`
-
-// `
-// export const Container2 = styled.div`
-
-// `
-
-// export const Container2 = styled.div`
-
-// `
-
-// export const Container2 = styled.div`
-
-// `
-
-// export const Container2 = styled.div`
-
-// `
-
-// export const Container2 = styled.div`
-
-// `
-
-// export const Container2 = styled.div`
-
-// `
-
-// export const Container2 = styled.div`
-
-// `
-
-// export const Container2 = styled.div`
-
-// `

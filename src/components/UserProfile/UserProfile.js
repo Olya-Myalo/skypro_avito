@@ -4,9 +4,9 @@ import {
   useUserUpdateMutation,
 } from '../../store/Service/serviceQuery'
 import MainMenu from '../MainMenu/MainMenu'
-import * as S from './CenterBlockProfile.styled'
+import * as S from './UserProfile.styled'
 
-const CenterBlockProfile = ({ infoUser }) => {
+const UserProfile = ({ infoUser }) => {
   const [UpdateUser] = useUserUpdateMutation()
   const [userData, setUserData] = useState({
     name: infoUser?.name,
@@ -140,4 +140,4 @@ const CenterBlockProfile = ({ infoUser }) => {
   )
 }
 
-export default CenterBlockProfile
+export default UserProfile

@@ -4,6 +4,15 @@ export const Wrapper = styled.div`
   width: 100%;
   min-height: 100%;
   overflow: hidden;
+    position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
 `
 
 export const Container = styled.div`
@@ -34,7 +43,7 @@ export const ModalBlock = styled.div`
   pointer-events: auto;
 
   @media screen and (max-width: 600px) {
-    position: absolute;
+    // position: absolute;
     z-index: 1;
     left: -5px;
     opacity: 1;
@@ -89,8 +98,8 @@ export const ModalTitle = styled.h3`
     &:before {
       content: '';
       display: block;
-      width: 15px;
-      height: 15px;
+      width: 12px;
+      height: 12px;
       background-color: transparent;
       border-top: 2px solid #000000;
       border-left: 2px solid #000000;
@@ -98,7 +107,7 @@ export const ModalTitle = styled.h3`
       transform: rotate(-45deg);
       position: absolute;
       top: 77px;
-      left: 30px;
+      left: 20px;
       cursor: pointer;
     }
   }
@@ -110,8 +119,8 @@ export const ModalTitle = styled.h3`
     &:before {
       content: '';
       display: block;
-      width: 12px;
-      height: 12px;
+      width: 15px;
+      height: 15px;
       background-color: transparent;
       border-top: 2px solid #000000;
       border-left: 2px solid #000000;
@@ -119,7 +128,7 @@ export const ModalTitle = styled.h3`
       transform: rotate(-45deg);
       position: absolute;
       top: 9px;
-      left: -67px;
+      left: -51px;
       cursor: pointer;
     }
   }
@@ -458,7 +467,7 @@ export const FormNewArtImg = styled.div`
   z-index: 0;
   @media screen and (max-width: 600px) {
     display: block;
-    width: 100px;
+    width: 90px;
     min-width: 90px;
     height: 90px;
     background-color: #f0f0f0;
@@ -479,6 +488,10 @@ export const FormNewArtImgImg = styled.div`
     -o-object-fit: cover;
     object-fit: cover;
   }
+`
+export const FormNewArtImgImg2 =styled.img`
+    width: 90px;
+    height: 90px;
 `
 export const FormNewArtiLabel = styled.label``
 export const FormNewArtInputPrice = styled.input`

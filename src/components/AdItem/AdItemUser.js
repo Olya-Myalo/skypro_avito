@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom'
-import * as S from './AdsComponent.styled'
+import * as S from './AdItem.styled'
 import { formatDateAndTime } from '../../utils/formatDate'
 
-const AdsComponentUser = ({ adsMe }) => {
+const AdItemUser = ({ adsMe }) => {
   if (!adsMe) {
     return <h2>Ничего не найдено</h2>
   }
@@ -35,4 +35,4 @@ const AdsComponentUser = ({ adsMe }) => {
   )
 }
 
-export default AdsComponentUser
+export default AdItemUser

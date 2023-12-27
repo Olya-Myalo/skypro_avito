@@ -3,7 +3,7 @@ import Footer from '../../components/Footer/Footer'
 import Header from '../../components/Header/Header'
 import MainMenu from '../../components/MainMenu/MainMenu'
 import * as S from './SellerProfile.styled'
-import AdsComponent from '../../components/AdsComponent/AdsComponent'
+import AdsComponent from '../../components/AdItem/AdItem'
 
 const SellerProfile = () => {
   return (
@@ -37,7 +37,9 @@ const SellerProfile = () => {
                     </S.SellerImgMobBlock>
                     <S.SellerBtn>
                       Показать&nbsp;телефон
-                      <S.SellerBtnSpan>8&nbsp;905&nbsp;ХХХ&nbsp;ХХ&nbsp;ХХ</S.SellerBtnSpan>
+                      <S.SellerBtnSpan>
+                        8&nbsp;905&nbsp;ХХХ&nbsp;ХХ&nbsp;ХХ
+                      </S.SellerBtnSpan>
                     </S.SellerBtn>
                   </S.SellerRight>
                 </S.ProfileSell>
@@ -46,8 +48,7 @@ const SellerProfile = () => {
             <S.MainTitle>Товары продавца</S.MainTitle>
           </S.MainCenterBlock>
 
-
-          <AdsComponent/>
+          <AdsComponent />
         </S.MainContainer>
         <Footer />
       </S.Container>
@@ -56,8 +57,6 @@ const SellerProfile = () => {
 }
 
 export default SellerProfile
-
-
 
 // {/* <div className="main__content">
 // <div className="content__cards cards"></div>

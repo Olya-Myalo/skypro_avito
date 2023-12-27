@@ -1,28 +1,28 @@
 import * as S from './Profile.styled'
 import Footer from '../../components/Footer/Footer'
 import Header from '../../components/Header/Header'
-import CenterBlockProfile from '../../components/CenterBlockProfile/CenterBlockProfile copy'
-import AdsComponentUser from '../../components/AdsComponent/AdsComponentUser'
 import {
   useGetAdsUserQuery,
   useGetUserInfoQuery,
 } from '../../store/Service/serviceQuery'
+import AdItemUser from '../../components/AdItem/AdItemUser'
+import UserProfile from '../../components/UserProfile/UserProfile'
 
 const Profile = () => {
-  const { data: adsMe, isLoading } = useGetAdsUserQuery()
-  const { data: infoUser, isLoading: isLoading2 } = useGetUserInfoQuery()
-  if (isLoading || isLoading2) return <div>идет загрузка...</div>
+  const { data, isLoading } = useGetAdsUserQuery()
+  const { data: user, isLoading: isLoading2 } = useGetUserInfoQuery()
+  if (isLoading || isLoading2) return <div>hujh</div>
   const profileKey = true
 
   return (
     <S.Wrapper>
       <S.Container>
-        <Header profileKey={profileKey} />
+        <Header data={data} profileKey={profileKey} />
         <S.MainContainer>
-          <CenterBlockProfile infoUser={infoUser} />
+          <UserProfile user={user} />
           <S.MainContent>
             <S.ContentCards>
-              <AdsComponentUser adsMe={adsMe} />
+              <AdItemUser data={data} />
             </S.ContentCards>
           </S.MainContent>
         </S.MainContainer>
