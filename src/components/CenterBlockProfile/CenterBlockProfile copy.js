@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import {
   useChangeAvatarMutation,
   useUserUpdateMutation,
-} from '../../store/Service/Service'
+} from '../../store/Service/serviceQuery'
 import MainMenu from '../MainMenu/MainMenu'
 import * as S from './CenterBlockProfile.styled'
 

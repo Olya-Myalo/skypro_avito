@@ -5,7 +5,8 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
   const baseQuery = fetchBaseQuery({
     baseUrl: 'http://localhost:8090/',
     prepareHeaders: (headers, { getState }) => {
-      const token = getState().auth.access
+      const token = getState().user.access
+      console.log('state', getState())
       // console.debug('Использую токен из стора', { token })
       if (token) {
         headers.set('authorization', `Bearer ${token}`)
@@ -28,16 +29,16 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
     window.location.navigate('/signin')
   }
 
-  const { auth } = api.getState()
+  const { user } = api.getState()
   // console.debug('Данные пользователя в сторе', { auth })
-  if (!auth.refresh) {
+  if (!user.refresh) {
     return forceLogout()
   }
   const refreshResult = await baseQuery(
     () => ({
       url: 'auth/login',
       method: 'PUT',
-      body: { access: auth.access, refresh: auth.refresh },
+      body: { access: user.access, refresh: user.refresh },
     }),
     api,
     extraOptions,
@@ -49,7 +50,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
     return forceLogout()
   }
 
-  api.dispatch(setAuth({ ...auth, access: refreshResult.data.access }))
+  api.dispatch(setAuth({ ...user, access: refreshResult.data.access }))
   const retryResult = await baseQuery(args, api, extraOptions)
 
   if (retryResult?.error?.status === 401) {

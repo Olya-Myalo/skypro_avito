@@ -6,7 +6,7 @@ import AdsComponentUser from '../../components/AdsComponent/AdsComponentUser'
 import {
   useGetAdsUserQuery,
   useGetUserInfoQuery,
-} from '../../store/Service/Service'
+} from '../../store/Service/serviceQuery'
 
 const Profile = () => {
   const { data: adsMe, isLoading } = useGetAdsUserQuery()

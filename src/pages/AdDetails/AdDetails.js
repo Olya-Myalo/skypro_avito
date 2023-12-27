@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom'
-import { useGetAdsIdQuery } from '../../store/Service/Service'
+import { useGetAdsIdQuery } from '../../store/Service/serviceQuery'
 import * as S from './AdDetails.styled'
 import Footer from '../../components/Footer/Footer'
 import Header from '../../components/Header/Header'

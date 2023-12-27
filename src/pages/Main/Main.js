@@ -4,7 +4,7 @@ import AdsComponent from '../../components/AdsComponent/AdsComponent'
 import Footer from '../../components/Footer/Footer'
 import Header from '../../components/Header/Header'
 import Search from '../../components/Search/Search'
-import { useGetAdsQuery, useGetUserInfoQuery, } from '../../store/Service/Service'
+import { useGetAdsQuery, useGetUserInfoQuery, } from '../../store/Service/serviceQuery'
 import * as S from './Main.styled'
 // import { setAds } from '../../store/slices/userSlice'
 

@@ -2,46 +2,33 @@ import React, { useState } from 'react'
 import * as S from './Signin.styled'
 import { getSignIn } from '../../api'
 import { useNavigate } from 'react-router-dom'
-// import { useDispatch } from 'react-redux'
-// import { setAuth } from '../../store/slices/auth'
-// import { useAccessTokenUserMutation } from '../../store/Service/token'
+import { useDispatch } from 'react-redux'
+import { setAuth } from '../../store/slices/auth'
 
-const Signin = ({ setUser }) => {
+const Signin = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState(null)
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  // const [postToken] = useAccessTokenUserMutation()
-
-  // const responseToken = async () => {
-  //   try {
-  //     const token = await postToken({ email, password }).unwrap()
-  //     dispatch(
-  //       setAuth({
-  //         access: token.access,
-  //         refresh: token.refresh,
-  //         user: JSON.parse(localStorage.getItem('user')),
-  //       }),
-  //     )
-  //   } catch (error) {
-  //     console.error('Ошибка получения токена:', error.message)
-  //     setError(error.message)
-  //   }
-  // }
-
-  const handleLogin = async () => {
+  const handleLogin = async (e) => {
+    e.preventDefault()
     if (!email || !password) {
       setError('Заполните поле ввода')
       return
     }
     try {
-      const response = await getSignIn( email, password )
-      setUser(response)
-      localStorage.setItem('email', email);
-      localStorage.setItem('access_token', response.access_token);
-      localStorage.setItem('refresh_token', response.refresh_token);
+      const response = await getSignIn(email, password)
+      const tokens = {
+        access: response.access_token,
+        refresh: response.refresh_token,
+        user: response.user,
+      }
+
+      // Вызовите функцию dispatch, чтобы сохранить токен в состоянии
+      dispatch(setAuth(tokens))
+
       navigate('/')
       setError(null)
     } catch (error) {
@@ -49,6 +36,7 @@ const Signin = ({ setUser }) => {
       setError(error.message)
     }
   }
+
   return (
     <S.Wrapper>
       <S.ContainerEnter>
@@ -57,7 +45,6 @@ const Signin = ({ setUser }) => {
             <S.ModalLogo>
               <S.ModalLogoImg src="../img/logo-reg.png" alt="logo" />
             </S.ModalLogo>
-            {/* {isError && error && <S.Div>{error.message}</S.Div>} */}
             <S.ModalInputLogin
               type="text"
               name="login"

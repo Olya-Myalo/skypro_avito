@@ -1,12 +1,11 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import * as S from './Signup.styled'
 import { getSignUp } from '../../api'
 import { useNavigate } from 'react-router-dom'
-// import { useAccessTokenUserMutation } from '../../store/Service/token'
-// import { setAuth } from '../../store/slices/auth'
-// import { useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { setAuth } from '../../store/slices/auth'
 
-const Signup = ({ setUser }) => {
+const Signup = () => {
   const [error, setError] = useState(null)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -14,29 +13,12 @@ const Signup = ({ setUser }) => {
   const [name, setName] = useState('')
   const [surname, setSurname] = useState('')
   const [city, setCity] = useState('')
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  // const [postToken] = useAccessTokenUserMutation()
-
-  // const responseToken = async () => {
-  //   try {
-  //     const token = await postToken({ email, password }).unwrap()
-  //     dispatch(
-  //       setAuth({
-  //         access: token.access,
-  //         refresh: token.refresh,
-  //         user: JSON.parse(localStorage.getItem('user')),
-  //       }),
-  //     )
-  //   } catch (error) {
-  //     console.error('Ошибка при получении токена:', error.message)
-  //     setError(error.message)
-  //   }
-  // }
-
-  const handleRegister = async () => {
-    if (!name || !email || !password || !repeatPassword) {
+  const handleRegister = async (e) => {
+    e.preventDefault()
+    if (!email || !password || !repeatPassword) {
       setError('Заполните все поля')
       return
     }
@@ -45,12 +27,13 @@ const Signup = ({ setUser }) => {
       return
     }
     try {
-      const response = await getSignUp( email, password, name, surname, city )
-      setUser(response)
-      localStorage.setItem('user', JSON.stringify(response))
-      localStorage.setItem('email', email);
-      localStorage.setItem('access_token', response.access_token);
-      localStorage.setItem('refresh_token', response.refresh_token);
+      const response = await getSignUp(email, password, name, surname, city)
+      const tokens = {
+        access: response.access_token,
+        refresh: response.refresh_token,
+        user: response.user,
+      }
+      dispatch(setAuth(tokens))
       navigate('/')
       setError(null)
     } catch (error) {
@@ -59,9 +42,9 @@ const Signup = ({ setUser }) => {
     }
   }
 
-  // useEffect(() => {
-  //   setError(null)
-  // }, [email, password, repeatPassword, name, surname, city])
+  useEffect(() => {
+    setError(null)
+  }, [email, password, repeatPassword, name, surname, city])
 
   return (
     <S.Wrapper>
