@@ -1,25 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import * as S from './App.styled'
+import AppRoutes from './routes'
+import { UserContext } from './context'
+import { useState } from 'react'
 
 function App() {
+  const [user, setUser] = useState(localStorage.getItem('user') || null)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <UserContext.Provider value={user}>
+        <S.MainApp>
+          <AppRoutes user={user} setUser={setUser} />
+        </S.MainApp>
+    </UserContext.Provider>
+  )
 }
 
-export default App;
+export default App
