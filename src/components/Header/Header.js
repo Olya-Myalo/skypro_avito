@@ -39,7 +39,7 @@ const Header = ({data,  profileKey, Authorization }) => {
             <S.HeaderBtnPutAd onClick={openModal}>Разместить объявление</S.HeaderBtnPutAd>
             <S.HeaderBtnLk
               onClick={() => {
-                navigate('/profile')
+                navigate('/profile') 
               }}
             >
               Личный кабинет

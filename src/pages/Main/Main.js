@@ -5,11 +5,12 @@ import Search from '../../components/Search/Search'
 import { useGetAdsQuery } from '../../store/Service/serviceQuery'
 import * as S from './Main.styled'
 import AdItem from '../../components/AdItem/AdItem'
+import { useSelector } from 'react-redux'
 
 const Main = () => {
   const { data, isLoading } = useGetAdsQuery()
   const [productsShow, setProductsShow] = useState(data)
-  const token = localStorage.getItem('access_token')
+  const token = useSelector(state => state.user.access);
   const Authorization = !!token
 
   if (isLoading) return <div>идет загрузка</div>

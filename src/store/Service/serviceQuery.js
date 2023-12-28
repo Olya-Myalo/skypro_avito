@@ -30,27 +30,28 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
   }
 
   const { user } = api.getState()
+  console.log(user)
   // console.debug('Данные пользователя в сторе', { auth })
   if (!user.refresh) {
     return forceLogout()
   }
   const refreshResult = await baseQuery(
-    () => ({
+    {
       url: 'auth/login',
       method: 'PUT',
-      body: { access: user.access, refresh: user.refresh },
-    }),
+      body: { access_token: user.access, refresh_token: user.refresh },
+    },
     api,
     extraOptions,
   )
 
-  // console.debug('Результат запроса на обновление токена', { refreshResult })
+  console.debug('Результат запроса на обновление токена', { refreshResult })
 
-  if (!refreshResult.data.access) {
+  if (!refreshResult.data.access_token) {
     return forceLogout()
   }
 
-  api.dispatch(setAuth({ ...user, access: refreshResult.data.access }))
+  api.dispatch(setAuth({ ...user, access: refreshResult.data.access_token, refresh: refreshResult.data.refresh_token }))
   const retryResult = await baseQuery(args, api, extraOptions)
 
   if (retryResult?.error?.status === 401) {
