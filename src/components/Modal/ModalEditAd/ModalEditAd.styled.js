@@ -4,10 +4,9 @@ export const Wrapper = styled.div`
   width: 100%;
   min-height: 100%;
   overflow: hidden;
-    position: fixed;
+  position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
@@ -30,8 +29,6 @@ export const ModalBlock = styled.div`
   width: 100vw;
   height: 100vh;
   position: fixed;
-  top: 0;
-  left: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -45,7 +42,7 @@ export const ModalBlock = styled.div`
   @media screen and (max-width: 600px) {
     position: absolute;
     z-index: 1;
-    left: -5px;
+    left: 0px;
     opacity: 1;
   }
 `
@@ -80,8 +77,9 @@ export const ModalContent = styled.div`
     align-items: center;
     width: 100%;
     min-width: 320px;
-    height: auto;
-    padding: 0 20px 0;
+    border-radius: 0;
+    height: 85%;
+    padding: 30px 20px 0;
   }
 `
 
@@ -91,6 +89,19 @@ export const ModalTitle = styled.h3`
   font-weight: 500;
   color: #000000;
   @media screen and (max-width: 600px) {
+   display: none;
+
+    }
+  }
+  @media screen and (max-width: 380px) {
+    display: none;
+    }
+  }
+`
+export const ModalMobTitle = styled.h3`
+  display: none;
+  @media screen and (max-width: 600px) {
+    display: block;
     font-size: 32px;
     line-height: 46px;
     font-weight: 500;
@@ -98,8 +109,8 @@ export const ModalTitle = styled.h3`
     &:before {
       content: '';
       display: block;
-      width: 15px;
-      height: 15px;
+      width: 12px;
+      height: 12px;
       background-color: transparent;
       border-top: 2px solid #000000;
       border-left: 2px solid #000000;
@@ -115,12 +126,11 @@ export const ModalTitle = styled.h3`
     font-size: 24px;
     line-height: 29px;
     position: relative;
-    left: -20px;
     &:before {
       content: '';
       display: block;
-      width: 12px;
-      height: 12px;
+      width: 15px;
+      height: 15px;
       background-color: transparent;
       border-top: 2px solid #000000;
       border-left: 2px solid #000000;
@@ -128,12 +138,11 @@ export const ModalTitle = styled.h3`
       transform: rotate(-45deg);
       position: absolute;
       top: 9px;
-      left: -67px;
+      left: -61px;
       cursor: pointer;
     }
   }
 `
-
 export const ModalBtnClose = styled.div`
   width: 23px;
   height: 23px;
@@ -221,7 +230,7 @@ export const FormNewArtBlock = styled.div`
   }
 `
 
-export const FormNewArtLabel = styled.label`
+export const FormNewArtLabel = styled.p`
   margin-bottom: 4px;
   font-size: 16px;
   line-height: 24px;
@@ -375,7 +384,6 @@ export const FormNewArtP = styled.p`
     font-size: 16px;
     line-height: 24px;
     color: #000000;
-    margin-bottom: 10px;
     &:span {
       margin-left: 10px;
       color: rgba(0, 0, 0, 0.3);
@@ -389,7 +397,7 @@ export const FormNewArtSpan = styled.span`
     display: block;
     margin-left: 0px;
     margin-bottom: 9px;
-    margin-top: -9px;
+    margin-top: -3px;
     color: rgba(0, 0, 0, 0.3);
   }
 `
@@ -490,7 +498,11 @@ export const FormNewArtImgImg = styled.img`
     object-fit: cover;
   }
 `
-export const FormNewArtiLabel = styled.label``
+export const FormNewArtiLabel = styled.p`
+  @media screen and (max-width: 600px) {
+    padding-bottom: 5px;
+  }
+`
 export const FormNewArtInputPrice = styled.input`
   width: 200px;
   color: #000000;
@@ -609,7 +621,7 @@ export const FormNewArtBtnPub = styled.button`
     background-color: #0080c1;
   }
   @media screen and (max-width: 600px) {
-    margin-top: 10px;
+    margin-top: 30px;
     width: 100%;
     height: 46px;
     &:hover {
@@ -617,13 +629,11 @@ export const FormNewArtBtnPub = styled.button`
     }
   }
 `
-export const FormNewArtImgImg2 =styled.img`
-    width: 90px;
-    height: 90px;
+export const FormNewArtImgImg2 = styled.img`
+  width: 90px;
+  height: 90px;
 `
-export const DeleteImageBtnDiv = styled.div`
- 
-`;
+export const DeleteImageBtnDiv = styled.div``
 
 export const DeleteImageBtn = styled.button`
   position: absolute;
@@ -639,5 +649,5 @@ export const DeleteImageBtn = styled.button`
   &:hover {
     scale: 1.1;
   }
-  
 `
+

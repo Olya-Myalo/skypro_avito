@@ -1,5 +1,5 @@
 import {  useState } from 'react'
-import { useAddAdsMutation, useAddImgAdsMutation} from '../../../store/Service/serviceQuery'
+import { useAddAdMutation, useAddImgAdMutation} from '../../../store/Service/serviceQuery'
 import * as S from './ModalAddAd.styled'
 
 export const ModalAddAd = ({ data,  onClose }) => {
@@ -9,39 +9,41 @@ export const ModalAddAd = ({ data,  onClose }) => {
   const [imageSrc, setImageSrc] = useState([]);
   const [selectedImages, setSelectedImages] = useState([])
   const specificId = data.id;
-  const [postAdsImage] = useAddImgAdsMutation(specificId)
-  const [addAds] = useAddAdsMutation()
+  const [postAdsImage] = useAddImgAdMutation(specificId)
+  const [addAds] = useAddAdMutation()
 
   const handleFileSelect = async (e) => {
     const files = Array.from(e.target.files)
     setImageSrc([...imageSrc, files.flat()].flat())
-    const reader = new FileReader()
-  
-    reader.onload = () => {
-      const imagesData = files.map((file) => ({
+    for (const file of files) {
+      const dataURL = await readFileAsDataURL(file)
+      const imageData = {
         file,
-        dataURL: reader.result,
-      }))
-      console.log('данные', imagesData)
-      setSelectedImages((prevImages) => [...prevImages, ...imagesData])
-    }
-    files.forEach((file) => reader.readAsDataURL(file))
-  };
-
-
-  
-  const submitAds = async () => {
-    console.log('REF', imageSrc);
-    const formData = new FormData()
-    for (let i = 0; i < imageSrc.length; i++) {
-      formData.append('file', imageSrc[i])
-    }
-    try {
-    const result = await addAds({ title, description, price })
-    await postAdsImage({id:result.data.id,  file: formData })
- } catch (error) {
-        console.log(error)
+        dataURL,
       }
+      setSelectedImages((prevImages) => [...prevImages, imageData])
+    }
+  }
+
+  const readFileAsDataURL = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader()
+      reader.onload = () => resolve(reader.result)
+      reader.onerror = reject
+      reader.readAsDataURL(file)
+    })
+  }
+  const submitAds = async () => {
+    try {
+      const result = await addAds({ title, description, price })
+      for (let i = 0; i < imageSrc.length; i++) {
+        const formData = new FormData()
+        formData.append('file', imageSrc[i])
+        await postAdsImage({ id: result.data.id, file: formData })
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
   
   return (

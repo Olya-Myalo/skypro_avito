@@ -111,7 +111,7 @@ export const ArticleFillImg = styled.div`
 `
 
 export const ArticleImg = styled.div`
-width: 100%;
+  width: 100%;
   height: 480px;
   background-color: #f0f0f0;
   margin: 0 5px;
@@ -361,16 +361,11 @@ export const ArticleAuthor = styled.div`
     margin-bottom: 30px;
   }
 `
-
-export const AuthorImg = styled.div`
+export const AuthorImg = styled.img`
   width: 40px;
   height: 40px;
   background-color: #f0f0f0;
   border-radius: 50%;
-`
-export const AuthorImgImg = styled.img`
-  width: 100%;
-  height: auto;
   display: block;
   -o-object-fit: cover;
   object-fit: cover;

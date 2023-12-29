@@ -5,7 +5,8 @@ import MainMenu from '../../components/MainMenu/MainMenu'
 import * as S from './SellerProfile.styled'
 import AdsComponent from '../../components/AdItem/AdItem'
 
-const SellerProfile = () => {
+const SellerProfile = ({data}) => {
+  console.log(data)
   return (
     <S.Wrapper>
       <S.Container>

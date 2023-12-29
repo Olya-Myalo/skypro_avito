@@ -1,3 +1,28 @@
+export function formatDate(date) {
+  const sellsFromDate = new Date(date)
+  const months = [
+    'января',
+    'февраля',
+    'марта',
+    'апреля',
+    'мая',
+    'июня',
+    'июля',
+    'августа',
+    'сентября',
+    'октября',
+    'ноября',
+    'декабря',
+  ];
+
+  const monthIndex = sellsFromDate.getMonth();
+  const year = sellsFromDate.getFullYear();
+
+  const formattedDate = `${months[monthIndex]} ${year}`;
+
+  return formattedDate;
+}
+
 export function formatDateAndTime(datetime) {
     const date = new Date(datetime);
     const today = new Date();
@@ -14,4 +39,27 @@ export function formatDateAndTime(datetime) {
     } else {
       return `${formattedDate} в ${formattedTime}`;
     }
+  }
+
+  export function formatDateTime(date) {
+    const sellsFromDate = new Date(date)
+    const monthNames = [
+      'января',
+      'февраля',
+      'марта',
+      'апреля',
+      'мая',
+      'июня',
+      'июля',
+      'августа',
+      'сентября',
+      'октября',
+      'ноября',
+      'декабря',
+    ]
+    const formattedDate = `${sellsFromDate.getDate()} ${
+      monthNames[sellsFromDate.getMonth()]
+    }
+    `
+    return formattedDate
   }

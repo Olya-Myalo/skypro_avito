@@ -1,23 +1,54 @@
 import * as S from './Profile.styled'
 import Footer from '../../components/Footer/Footer'
-import Header from '../../components/Header/Header'
 import {
   useGetAdsUserQuery,
-  useGetUserInfoQuery,
+  useGetСurrentUserQuery,
 } from '../../store/Service/serviceQuery'
 import AdItemUser from '../../components/AdItem/AdItemUser'
 import UserProfile from '../../components/UserProfile/UserProfile'
+import ModalAddAd from '../../components/Modal/ModalAddAd/ModalAddAd'
+import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
 
 const Profile = () => {
+  const navigate = useNavigate()
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const { data, isLoading } = useGetAdsUserQuery()
-  const { data: user, isLoading: isLoading2 } = useGetUserInfoQuery()
+  const { data: user, isLoading: isLoading2 } = useGetСurrentUserQuery()
   if (isLoading || isLoading2) return <div>hujh</div>
-  const profileKey = true
+
+
+  const Logut = () => {
+    navigate('/')
+    localStorage.clear()
+    window.location.reload()
+  }
+
+  const openModal = () => {
+    setIsModalOpen(true)
+  }
+
+  const closeModal = () => {
+    setIsModalOpen(false)
+  }
 
   return (
     <S.Wrapper>
       <S.Container>
-        <Header data={data} profileKey={profileKey} />
+        <S.Header>
+          <S.HeaderNav>
+            <S.Logo>
+              <S.LogoMobLink>
+                <S.LogoMobImg src="/img/logo-mob.png" alt="logo" />
+              </S.LogoMobLink>
+            </S.Logo>
+            <S.HeaderBtnPutAd onClick={openModal}>
+              Разместить объявление
+            </S.HeaderBtnPutAd>
+            <S.HeaderBtnLk onClick={Logut}>Выйти</S.HeaderBtnLk>
+          </S.HeaderNav>
+          {isModalOpen && <ModalAddAd data={data} onClose={closeModal} />}
+        </S.Header>
         <S.MainContainer>
           <UserProfile user={user} />
           <S.MainContent>

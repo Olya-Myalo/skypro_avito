@@ -10,8 +10,7 @@ import { useSelector } from 'react-redux'
 const Main = () => {
   const { data, isLoading } = useGetAdsQuery()
   const [productsShow, setProductsShow] = useState(data)
-  const token = useSelector(state => state.user.access);
-  const Authorization = !!token
+  const Authorization = !!(useSelector(state => state.user.access))
 
   if (isLoading) return <div>идет загрузка</div>
 
@@ -25,7 +24,7 @@ const Main = () => {
             <S.MainH2>Объявления</S.MainH2>
             <S.MainContent>
               <S.ContentCards>
-                <AdItem products={productsShow ? productsShow : data} />
+                <AdItem products={productsShow ? productsShow : data} Authorization ={Authorization}/>
               </S.ContentCards>
             </S.MainContent>
           </S.MainContainer>

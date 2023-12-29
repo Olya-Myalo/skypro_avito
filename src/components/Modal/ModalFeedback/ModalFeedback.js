@@ -4,40 +4,40 @@ import { useAddCommentMutation } from '../../../store/Service/serviceQuery'
 import Footer from '../../Footer/Footer'
 import { Header } from '../../Header/Header.styled'
 import * as S from './ModalFeedback.styled'
-import { FeedbackItem } from './FeedbackItem'
+import { useSelector } from 'react-redux'
+import { formatDateTime } from '../../../utils/formatDate'
 
 export const ModalFeedback = ({ comments, onClose }) => {
   const modalRef = useRef(null)
   const { adId } = useParams()
-  const token = localStorage.getItem('access_token')
-
+  const token = useSelector((state) => state.user.access)
   const [addComment, { isLoading }] = useAddCommentMutation(adId)
-  const [newComment, setNewComment] = useState('')
+  const [textComment, setTextComment] = useState('')
   const [error, setError] = useState(null)
+
   useEffect(() => {
-    const handleOutsideClick = (event) => {
+    const handleClick = (event) => {
       if (!modalRef.current.contains(event.target)) {
         onClose()
       }
     }
-
-    document.addEventListener('mousedown', handleOutsideClick)
+    document.addEventListener('mousedown', handleClick)
 
     return () => {
-      document.removeEventListener('mousedown', handleOutsideClick)
+      document.removeEventListener('mousedown', handleClick)
     }
   }, [onClose])
 
   const handleAddComment = async (event) => {
     event.preventDefault()
 
-    if (!newComment) {
+    if (!textComment) {
       setError('Пожалуйста, введите комментарий')
       return
     }
-    if (newComment) {
-      await addComment({ text: newComment, id: adId })
-      setNewComment('')
+    if (textComment) {
+      await addComment({ text: textComment, id: adId })
+      setTextComment('')
     }
   }
 
@@ -67,8 +67,8 @@ export const ModalFeedback = ({ comments, onClose }) => {
                       cols="auto"
                       rows="5"
                       placeholder="Введите описание"
-                      value={newComment}
-                      onChange={(e) => setNewComment(e.target.value)}
+                      value={textComment}
+                      onChange={(e) => setTextComment(e.target.value)}
                     ></S.FormNewArtArea>
                   </S.FormNewArtBlock>
                 )}
@@ -77,7 +77,7 @@ export const ModalFeedback = ({ comments, onClose }) => {
                 ) : (
                   <S.FormNewArtBtnPub
                     onClick={handleAddComment}
-                    disabled={!newComment}
+                    disabled={!textComment}
                   >
                     {isLoading ? 'Публикация...' : 'Опубликовать'}
                   </S.FormNewArtBtnPub>
@@ -86,14 +86,28 @@ export const ModalFeedback = ({ comments, onClose }) => {
               <S.ModalReviews>
                 <S.ReviewsReview>
                   {comments
-                    ? comments.map((item, index) => (
-                        <FeedbackItem
-                          text={item.text}
-                          key={index}
-                          avatar={`http://localhost:8090/${item.author.avatar}`}
-                          author={item.author.name}
-                          time={item.created_on}
-                        />
+                    ? comments.map((comment, index) => (
+                        <S.ReviewItem key={index}>
+                          <S.ReviewLeft>
+                            <S.ReviewImg>
+                              <S.ReviewImgImg
+                                src={`http://localhost:8090/${comment.author.avatar}`}
+                                alt="avatar"
+                              />
+                            </S.ReviewImg>
+                          </S.ReviewLeft>
+                          <S.ReviewRight>
+                            <S.ReviewName>
+                              {' '}
+                              {comment.author.name}
+                              <S.ReviewNameSpan>
+                                {formatDateTime(comment.created_on)}
+                              </S.ReviewNameSpan>
+                            </S.ReviewName>
+                            <S.ReviewTitle>Комментарий</S.ReviewTitle>
+                            <S.ReviewText>{comment.text}</S.ReviewText>
+                          </S.ReviewRight>
+                        </S.ReviewItem>
                       ))
                     : ''}
                 </S.ReviewsReview>
