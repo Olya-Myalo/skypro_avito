@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
-import Footer from '../../components/Footer/Footer'
-import Header from '../../components/Header/Header'
+// import Footer from '../../components/Footer/Footer'
+// import Header from '../../components/Header/Header'
 import MainMenu from '../../components/MainMenu/MainMenu'
 import * as S from './SellerProfile.styled'
 import AdsComponent from '../../components/AdItem/AdItem'
@@ -8,9 +8,6 @@ import AdsComponent from '../../components/AdItem/AdItem'
 const SellerProfile = ({data}) => {
   console.log(data)
   return (
-    <S.Wrapper>
-      <S.Container>
-        <Header />
         <S.MainContainer>
           <S.MainCenterBlock>
             <MainMenu />
@@ -51,9 +48,6 @@ const SellerProfile = ({data}) => {
 
           <AdsComponent />
         </S.MainContainer>
-        <Footer />
-      </S.Container>
-    </S.Wrapper>
   )
 }
 

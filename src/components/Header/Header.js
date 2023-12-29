@@ -19,7 +19,7 @@ const Header = ({data, Authorization }) => {
     <S.Header>
       <S.HeaderNav>
         <S.Logo>
-          <S.LogoMobLink>
+          <S.LogoMobLink to='/'>
             <S.LogoMobImg src="/img/logo-mob.png" alt="logo" />
           </S.LogoMobLink>
         </S.Logo>

@@ -6,19 +6,17 @@ import {
   useDelAdMutation,
   useGetСurrentUserQuery,
 } from '../../store/Service/serviceQuery'
-import Footer from '../../components/Footer/Footer'
-import Header from '../../components/Header/Header'
 import MainMenu from '../../components/MainMenu/MainMenu'
 import { useState, useEffect } from 'react'
 import { ModalFeedback } from '../../components/Modal/ModalFeedback/ModalFeedback'
-import ModalEditAd from '../../components/Modal/ModalEditAd/ModalEditAd'
 import { formatDateAndTime } from '../../utils/formatDate'
 import { formatDate } from '../../utils/formatDate'
+import ModalEditAd from '../../components/Modal/ModalEditAd/ModalEditAd'
 
-const DataAd = ({ Authorization }) => {
+const DataAd = () => {
   const navigate = useNavigate()
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [isModalOpenReviews, setIsModalOpenReviews] = useState(false)
+  const [isModalOpenComments, setIsModalOpenComments] = useState(false)
   const [adComments, setAdComments] = useState([])
   const [deleted, setDeleted] = useState(false)
   const [selectedImageIndex, setSelectedImageIndex] = useState(0)
@@ -67,10 +65,6 @@ const DataAd = ({ Authorization }) => {
     console.log('')
   }
   return (
-    <div>
-      <S.Wrapper>
-        <S.Container>
-          <Header Authorization={Authorization} />
           <S.Main>
             <S.MainContainer>
               <MainMenu />
@@ -120,7 +114,7 @@ const DataAd = ({ Authorization }) => {
                       <S.ArticleLink
                         onClick={(e) => {
                           e.preventDefault()
-                          setIsModalOpenReviews(true)
+                          setIsModalOpenComments(true)
                         }}
                         href=""
                         target="_blank"
@@ -186,19 +180,15 @@ const DataAd = ({ Authorization }) => {
                 <S.MainText>{data.description}</S.MainText>
               </S.MainContent>
             </S.MainContainer>
-            {isModalOpenReviews && (
+            {isModalOpenComments && (
               <ModalFeedback
-                onClose={() => setIsModalOpenReviews(false)}
+                onClose={() => setIsModalOpenComments(false)}
                 comments={advComments}
                 advId={adId}
               />
             )}
+            {isModalOpen && <ModalEditAd data={data} onClose={closeModal} />}
           </S.Main>
-          <Footer />
-        </S.Container>
-        {isModalOpen && <ModalEditAd data={data} onClose={closeModal} />}
-      </S.Wrapper>
-    </div>
   )
 }
 

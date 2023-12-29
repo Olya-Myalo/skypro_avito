@@ -208,4 +208,5 @@ export const {
   useAddCommentMutation,
   useAddImgAdMutation,
   useDeleteImgAdMutation,
+  useLazyGetUserInfoQuery
 } = Api

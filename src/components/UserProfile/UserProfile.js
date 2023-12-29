@@ -41,7 +41,7 @@ const UserProfile = ({ user }) => {
     }
   }
 
-  const handleImageChange = async (event) => {
+  const handleAvatarChange = async (event) => {
     event.preventDefault()
     const selectedImg = event.target.files[0]
     if (!selectedImg) {
@@ -73,7 +73,7 @@ const UserProfile = ({ user }) => {
                 <input
                   type="file"
                   hidden
-                  onChange={(e) => handleImageChange(e)}
+                  onChange={(e) => handleAvatarChange(e)}
                 />
               </S.SettingsChangePhoto>
             </S.SettingsLeft>
