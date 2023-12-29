@@ -11,15 +11,16 @@ export const ModalEditAd = ({ data, onClose }) => {
   const [title, setTitle] = useState(data.title)
   const [description, setDescription] = useState(data.description)
   const [price, setPrice] = useState(data.price)
-  const [selectedImages, setSelectedImages] = useState([])
+  const [isImages, setIsImages] = useState([])
+  const [isError, setIsError] = useState('')
   const id = data.id
   const [deleteImages] = useDeleteImgAdMutation(id)
   const [postImage] = useAddImgAdMutation(id)
   const [Input, setInput] = useState([])
   const [editAd] = useEditAdMutation()
 
-  const handleFileSelect = async (e) => {
-    const files = Array.from(e.target.files)
+  const handleFileSelect = async (event) => {
+    const files = Array.from(event.target.files)
     setInput([...Input, files.flat()].flat())
     const reader = new FileReader()
     reader.onload = () => {
@@ -27,12 +28,12 @@ export const ModalEditAd = ({ data, onClose }) => {
         file,
         dataURL: reader.result,
       }))
-      setSelectedImages((prevImages) => [...prevImages, ...imagesData])
+      setIsImages((prevImages) => [...prevImages, ...imagesData])
     }
     files.forEach((file) => reader.readAsDataURL(file))
   }
 
-  const correctAds = async () => {
+  const clickChangeAd = async () => {
     try {
       const result = await editAd({
         title,
@@ -57,9 +58,9 @@ export const ModalEditAd = ({ data, onClose }) => {
     const data = { image, id }
     try {
       await deleteImages(data)
-      setSelectedImages((images) => images.filter((img) => img !== image))
+      setIsImages((images) => images.filter((img) => img !== image))
     } catch (error) {
-      console.error('Ошибка при удалении фотографии:', error)
+      setIsError(error)
     }
   }
 
@@ -120,9 +121,9 @@ export const ModalEditAd = ({ data, onClose }) => {
                   ))}
                 {[...Array(5 - data.images.length)].map((_, index) => (
                   <S.FormNewArtImg key={index}>
-                    {selectedImages[index] ? (
+                    {isImages[index] ? (
                       <S.FormNewArtImgImg2
-                        src={selectedImages[index].dataURL}
+                        src={isImages[index].dataURL}
                         alt="Выбранное изображение"
                       />
                     ) : (
@@ -153,9 +154,10 @@ export const ModalEditAd = ({ data, onClose }) => {
                 onChange={(e) => setPrice(e.target.value)}
               />
             </S.FormNewArtBlock>
+            <div>{isError}</div>
             <S.FormNewArtBtnPub
               onClick={() => {
-                correctAds()
+                clickChangeAd()
                 onClose()
               }}
               id="btnPublish"

@@ -1,22 +1,26 @@
-import {  useState } from 'react'
-import { useAddAdMutation, useAddImgAdMutation} from '../../../store/Service/serviceQuery'
+import { useState } from 'react'
+import {
+  useAddAdMutation,
+  useAddImgAdMutation,
+} from '../../../store/Service/serviceQuery'
 import * as S from './ModalAddAd.styled'
 
-export const ModalAddAd = ({ data,  onClose }) => {
-  const [title, setTitle] = useState('пусто')
+export const ModalAddAd = ({ data, onClose }) => {
+  const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [price, setPrice] = useState('')
-  const [imageSrc, setImageSrc] = useState([]);
+  const [isImageSrc, setIsImage] = useState([])
   const [selectedImages, setSelectedImages] = useState([])
-  const specificId = data.id;
-  const [postAdsImage] = useAddImgAdMutation(specificId)
+  const [isError, setIsError] = useState('')
+  const adId = data.id
+  const [postAdsImage] = useAddImgAdMutation(adId)
   const [addAds] = useAddAdMutation()
 
-  const handleFileSelect = async (e) => {
+  const handleImageAd = async (e) => {
     const files = Array.from(e.target.files)
-    setImageSrc([...imageSrc, files.flat()].flat())
+    setIsImage([...isImageSrc, files.flat()].flat())
     for (const file of files) {
-      const dataURL = await readFileAsDataURL(file)
+      const dataURL = await fileDataURL(file)
       const imageData = {
         file,
         dataURL,
@@ -25,7 +29,7 @@ export const ModalAddAd = ({ data,  onClose }) => {
     }
   }
 
-  const readFileAsDataURL = (file) => {
+  const fileDataURL = (file) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader()
       reader.onload = () => resolve(reader.result)
@@ -33,19 +37,20 @@ export const ModalAddAd = ({ data,  onClose }) => {
       reader.readAsDataURL(file)
     })
   }
-  const submitAds = async () => {
+
+  const createAd = async () => {
     try {
       const result = await addAds({ title, description, price })
-      for (let i = 0; i < imageSrc.length; i++) {
+      for (let i = 0; i < isImageSrc.length; i++) {
         const formData = new FormData()
-        formData.append('file', imageSrc[i])
+        formData.append('file', isImageSrc[i])
         await postAdsImage({ id: result.data.id, file: formData })
       }
     } catch (error) {
-      console.log(error)
+      setIsError(error)
     }
   }
-  
+
   return (
     <S.Wrapper>
       <S.ModalBlock>
@@ -78,34 +83,34 @@ export const ModalAddAd = ({ data,  onClose }) => {
               ></S.FormNewArtArea>
             </S.FormNewArtBlock>
             <S.FormNewArtBlock>
-        <S.FormNewArtP>Фотографии товара</S.FormNewArtP>
-        <S.FormNewArtSpan>не более 5 фотографий</S.FormNewArtSpan>
-        <S.FormNewArtBarImg>
-        {[...Array(5)].map((_, index) => (
-            <S.FormNewArtImg key={index}>
-                {selectedImages[index] ? (
-              <S.FormNewArtImgImg2
-                src={selectedImages[index].dataURL}
-                alt="Выбранное изображение"
-              />
-              ) : (
-                <S.FormNewArtImgImg src="" alt="" />
-              )}
-              <S.FormNewArtBarImgCover
-                onClick={() =>
-                  document.getElementById(`fileInput${index}`).click()
-                }
-              ></S.FormNewArtBarImgCover>
-              <input
-                type="file"
-                id={`fileInput${index}`}
-                style={{ display: 'none' }}
-                onChange={(e) => handleFileSelect(e)}
-              />
-            </S.FormNewArtImg>
-          ))}
-        </S.FormNewArtBarImg>
-      </S.FormNewArtBlock>
+              <S.FormNewArtP>Фотографии товара</S.FormNewArtP>
+              <S.FormNewArtSpan>не более 5 фотографий</S.FormNewArtSpan>
+              <S.FormNewArtBarImg>
+                {[...Array(5)].map((_, index) => (
+                  <S.FormNewArtImg key={index}>
+                    {selectedImages[index] ? (
+                      <S.FormNewArtImgImg2
+                        src={selectedImages[index].dataURL}
+                        alt="Выбранное изображение"
+                      />
+                    ) : (
+                      <S.FormNewArtImgImg src="" alt="" />
+                    )}
+                    <S.FormNewArtBarImgCover
+                      onClick={() =>
+                        document.getElementById(`fileInput${index}`).click()
+                      }
+                    ></S.FormNewArtBarImgCover>
+                    <input
+                      type="file"
+                      id={`fileInput${index}`}
+                      style={{ display: 'none' }}
+                      onChange={(e) => handleImageAd(e)}
+                    />
+                  </S.FormNewArtImg>
+                ))}
+              </S.FormNewArtBarImg>
+            </S.FormNewArtBlock>
             <S.FormNewArtBlock>
               <S.FormNewArtiLabel>Цена</S.FormNewArtiLabel>
               <S.FormNewArtInputPrice
@@ -116,11 +121,14 @@ export const ModalAddAd = ({ data,  onClose }) => {
                 onChange={(e) => setPrice(e.target.value)}
               />
             </S.FormNewArtBlock>
-            <S.FormNewArtBtnPub onClick={() => {
-  submitAds();
-  onClose();
-}} 
-          id="btnPublish">
+            <div>{isError}</div>
+            <S.FormNewArtBtnPub
+              onClick={() => {
+                createAd()
+                onClose()
+              }}
+              id="btnPublish"
+            >
               Опубликовать
             </S.FormNewArtBtnPub>
           </S.ModalFormNewArt>

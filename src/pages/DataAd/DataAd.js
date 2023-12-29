@@ -19,12 +19,12 @@ const DataAd = () => {
   const [isModalOpenComments, setIsModalOpenComments] = useState(false)
   const [adComments, setAdComments] = useState([])
   const [deleted, setDeleted] = useState(false)
-  const [selectedImageIndex, setSelectedImageIndex] = useState(0)
+  const [isImage, setIsImage] = useState(0)
   const { adId } = useParams()
   const { data: advComments } = useGetAllCurrentUserCommentsQuery(adId)
   const { data, isLoading } = useGetAdsIdQuery(adId)
   const { data: user } = useGetСurrentUserQuery()
-  const [DeteleAds] = useDelAdMutation(adId)
+  const [DeleteAd] = useDelAdMutation(adId)
 
   useEffect(() => {
     if (advComments) {
@@ -40,24 +40,24 @@ const DataAd = () => {
     setIsModalOpen(false)
   }
 
-  const imageUrls = data?.images?.map(
+  const imagesUrl = data?.images?.map(
     (image) => `http://127.0.0.1:8090/${image.url}`
   )
 
   const handleImageClick = (index) => {
-    setSelectedImageIndex(index)
+    setIsImage(index)
   }
 
   if (isLoading || !data) return <div>идет загрузка</div>
 
-  let showEdit = false
+  let showInput = false
   if (data.user.id === parseInt(user?.id, 10)) {
-    showEdit = true
+    showInput = true
   }
 
-  const DeleteAtdFunc = async () => {
+  const removeFromPublication = async () => {
     setDeleted(true)
-    DeteleAds({ adId: adId })
+    DeleteAd({ adId: adId })
     navigate('/')
   }
 
@@ -75,13 +75,13 @@ const DataAd = () => {
                   <S.ArticleFillImg>
                     <S.ArticleImg>
                       <S.ArticleImgImg
-                        src={`http://127.0.0.1:8090/${data?.images[selectedImageIndex]?.url}`}
+                        src={`http://127.0.0.1:8090/${data?.images[isImage]?.url}`}
                         alt=""
                       />
                     </S.ArticleImg>
                     <S.ArticleImgBar>
-                      {imageUrls &&
-                        imageUrls.map((imageUrl, index) => (
+                      {imagesUrl &&
+                        imagesUrl.map((imageUrl, index) => (
                           <S.ArticleImgBarDiv
                             key={index}
                             onClick={() => handleImageClick(index)}
@@ -124,14 +124,14 @@ const DataAd = () => {
                       </S.ArticleLink>
                     </S.ArticleInfo>
                     <S.ArticlePrice>{data.price} ₽</S.ArticlePrice>
-                    {showEdit ? (
+                    {showInput ? (
                       <S.ArticleBtnBlock>
                         <S.ArticleBtnReact onClick={openModal}>
                           Редактировать
                         </S.ArticleBtnReact>
 
                         <S.ArticleBtnRemove
-                          onClick={DeleteAtdFunc}
+                          onClick={removeFromPublication}
                           disabled={deleted}
                         >
                           {deleted ? 'Удалено' : 'Снять с публикации'}

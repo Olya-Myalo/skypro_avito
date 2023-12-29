@@ -1,12 +1,10 @@
 import { Link } from 'react-router-dom'
-// import Footer from '../../components/Footer/Footer'
-// import Header from '../../components/Header/Header'
 import MainMenu from '../../components/MainMenu/MainMenu'
 import * as S from './SellerProfile.styled'
 import AdsComponent from '../../components/AdItem/AdItem'
 
-const SellerProfile = ({data}) => {
-  console.log(data)
+const SellerProfile = () => {
+
   return (
         <S.MainContainer>
           <S.MainCenterBlock>

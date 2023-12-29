@@ -16,6 +16,7 @@ const UserProfile = ({ user }) => {
   })
   const [changeAvatar] = useChangeAvatarMutation()
   const [avatarUrl, setAvatarUrl] = useState('')
+  const [error, setError] = useState('')
 
   useEffect(() => {
     avatarUrl === null
@@ -32,29 +33,28 @@ const UserProfile = ({ user }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log(userData)
     try {
       const updatedData = await UpdateUser(userData).unwrap()
       console.log('Пользователь успешно обновлен', updatedData)
     } catch (error) {
-      console.error('Ошибка при обновлении пользователя', error)
+      setError(error)
     }
   }
 
   const handleAvatarChange = async (event) => {
     event.preventDefault()
-    const selectedImg = event.target.files[0]
-    if (!selectedImg) {
-      console.log('Файл не выбран')
+    const selectedAvatar = event.target.files[0]
+    if (!selectedAvatar) {
+      setError('Файл не выбран')
       return
     }
     try {
       const formData = new FormData()
-      formData.append('file', selectedImg)
+      formData.append('file', selectedAvatar)
       await changeAvatar(formData)
-      setAvatarUrl(URL.createObjectURL(selectedImg))
+      setAvatarUrl(URL.createObjectURL(selectedAvatar))
     } catch (error) {
-      console.error('Ошибка при изменении аватара', error)
+      setError(error)
     }
   }
 
@@ -68,6 +68,7 @@ const UserProfile = ({ user }) => {
           <S.ProfileSettings>
             <S.SettingsLeft action="#">
               <S.SettingImgImg alt="" src={avatarUrl} />
+              <div>{error}</div>
               <S.SettingsChangePhoto>
                 Заменить
                 <input
@@ -123,6 +124,7 @@ const UserProfile = ({ user }) => {
                     placeholder="+79161234567"
                   />
                 </S.SettingsDiv>
+                <div>{error}</div>
                 <S.SettingBtn id="settings-btn" type="submit">
                   Сохранить
                 </S.SettingBtn>

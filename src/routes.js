@@ -14,10 +14,10 @@ const AppRoutes = ({ user, setUser }) => {
     <Routes>
       <Route path="/signup" element={<Signup setUser={setUser} />} />
       <Route path="/signin" element={<Signin setUser={setUser} />} />
-      <Route exact path="/" element={<PageLayout />}>
+      <Route path="/" element={<PageLayout />}>
         <Route path="/" element={<Main user={user} />} />
-        <Route exact path="/ad/:adId" Component={DataAd} />
-        <Route exact path="/sellerProfile" Component={SellerProfile} />
+        <Route path="/ad/:adId" Component={DataAd} />
+        <Route path="/sellerProfile" Component={SellerProfile} />
       </Route>
       <Route element={<ProtectedRoute />}>
         <Route exact path="/profile" Component={Profile} />
