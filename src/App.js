@@ -7,7 +7,7 @@ function App() {
 
   return (
     <UserContext.Provider value={user}>
-          <AppRoutes user={user} setUser={setUser} />
+      <AppRoutes user={user} setUser={setUser} />
     </UserContext.Provider>
   )
 }

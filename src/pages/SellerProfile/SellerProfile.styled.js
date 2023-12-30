@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-const maxMobile = '890px'
+
 const mobileVersion = '620px'
 
 export const Wrapper = styled.div`
@@ -75,7 +75,7 @@ export const MainProfileSell = styled.div`
 `
 export const ProfileSellContent = styled.div`
   width: 100%;
-  @media screen and (max-width: ${maxMobile}) {
+  @media screen and (max-width: 890px) {
     max-width: 834px;
     width: 100%;
   }
@@ -88,7 +88,7 @@ export const ProfileSell = styled.div`
   display: flex;
   align-items: top;
   justify-content: start;
-  @media screen and (max-width: ${maxMobile}) {
+  @media screen and (max-width: 890px) {
     flex-wrap: wrap;
   }
   @media screen and (max-width: ${mobileVersion}) {
@@ -350,7 +350,7 @@ export const ContentCards = styled.div`
     grid-template-columns: repeat(2, 270px);
   }
 
-  @media screen and (max-width: ${maxMobile}) {
+  @media screen and (max-width: 890px) {
     display: grid;
     grid-template-columns: repeat(3, 270px);
   }

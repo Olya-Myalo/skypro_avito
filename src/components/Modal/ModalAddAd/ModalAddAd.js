@@ -4,7 +4,6 @@ import {
   useAddImgAdMutation,
 } from '../../../store/Service/serviceQuery'
 import * as S from './ModalAddAd.styled'
-// import Arrow from '../../../assets/arrow.svg'
 
 export const ModalAddAd = ({ data, onClose }) => {
   const [title, setTitle] = useState('')
@@ -56,7 +55,7 @@ export const ModalAddAd = ({ data, onClose }) => {
     <S.Wrapper>
       <S.ModalBlock>
         <S.ModalContent>
-          <S.ModalTitle onClick={onClose} >Новое объявление</S.ModalTitle>
+          <S.ModalTitle onClick={onClose}>Новое объявление</S.ModalTitle>
           <S.ModalBtnClose onClick={onClose}>
             <S.ModalBtnCloseLine></S.ModalBtnCloseLine>
           </S.ModalBtnClose>

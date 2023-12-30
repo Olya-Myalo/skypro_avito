@@ -9,14 +9,14 @@ import UserProfile from '../../components/UserProfile/UserProfile'
 import ModalAddAd from '../../components/Modal/ModalAddAd/ModalAddAd'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
+import Loader from '../../components/Loader/Loader'
 
 const Profile = () => {
   const navigate = useNavigate()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const { data, isLoading } = useGetAdsUserQuery()
   const { data: user, isLoading: isLoading2 } = useGetСurrentUserQuery()
-  if (isLoading || isLoading2) return <div>hujh</div>
-
+  if (isLoading || isLoading2) return <Loader />
 
   const Logut = () => {
     navigate('/')

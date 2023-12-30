@@ -3,12 +3,12 @@ import * as S from './Header.styled'
 import { ModalAddAd } from '../Modal/ModalAddAd/ModalAddAd'
 import { useState } from 'react'
 
-const Header = ({data, Authorization }) => {
+const Header = ({ data, Authorization }) => {
   const navigate = useNavigate()
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const openModal = () => {
-    setIsModalOpen(true) 
+    setIsModalOpen(true)
   }
 
   const closeModal = () => {
@@ -19,16 +19,18 @@ const Header = ({data, Authorization }) => {
     <S.Header>
       <S.HeaderNav>
         <S.Logo>
-          <S.LogoMobLink to='/'>
+          <S.LogoMobLink to="/">
             <S.LogoMobImg src="/img/logo-mob.png" alt="logo" />
           </S.LogoMobLink>
         </S.Logo>
-        { Authorization ? (
+        {Authorization ? (
           <>
-            <S.HeaderBtnPutAd onClick={openModal}>Разместить объявление</S.HeaderBtnPutAd>
+            <S.HeaderBtnPutAd onClick={openModal}>
+              Разместить объявление
+            </S.HeaderBtnPutAd>
             <S.HeaderBtnLk
               onClick={() => {
-                navigate('/profile') 
+                navigate('/profile')
               }}
             >
               Личный кабинет
@@ -44,8 +46,7 @@ const Header = ({data, Authorization }) => {
           </S.HeaderBtnLkEnter>
         )}
       </S.HeaderNav>
-      {isModalOpen && 
-        <ModalAddAd data={data} onClose={closeModal}/>}
+      {isModalOpen && <ModalAddAd data={data} onClose={closeModal} />}
     </S.Header>
   )
 }

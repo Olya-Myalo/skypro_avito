@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react'
 import { formatDate } from '../../utils/formatDate'
 import AdItem from '../../components/AdItem/AdItem'
 import { Back } from '../../components/Back'
+import { PhoneVisibility } from '../../components/PhoneVisibility'
 
 const SellerProfile = () => {
   const { id } = useParams()
@@ -76,12 +77,7 @@ const SellerProfile = () => {
                     />
                   </S.SellerImgMob>
                 </S.SellerImgMobBlock>
-                <S.SellerBtn>
-                  Показать&nbsp;телефон
-                  <S.SellerBtnSpan>
-                    8&nbsp;905&nbsp;ХХХ&nbsp;ХХ&nbsp;ХХ
-                  </S.SellerBtnSpan>
-                </S.SellerBtn>
+                <PhoneVisibility data={allAds[0]} />
               </S.SellerRight>
             </S.ProfileSell>
           </S.ProfileSellContent>

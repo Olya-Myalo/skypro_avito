@@ -2,10 +2,10 @@ import styled from 'styled-components'
 import Arrow from '../assets/arrow.svg'
 import { useNavigate } from 'react-router-dom'
 
-const maxMobileWidthTwo = '620px'
+const mobileVersion = '620px'
 export const BackWrapper = styled.div`
   display: none;
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     display: block;
     position: absolute;
     top: 90px;

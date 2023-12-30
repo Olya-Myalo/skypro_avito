@@ -1,17 +1,24 @@
 import { styled } from 'styled-components'
 
+const mobileVersion = '620px'
+
 export const Wrapper = styled.div`
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background-color: rgba(0, 0, 0, 0.5); /* Прозрачный серый фон */
-display: flex;
-justify-content: center;
-align-items: center;
-overflow-x: hidden;
-overflow-y: scroll;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  @media screen and (max-width: ${mobileVersion}) {
+    width: 322px;
+    background-color: #ffffff;
+    overflow: hidden;
+  }
 `
 
 export const Container = styled.div`
@@ -20,9 +27,10 @@ export const Container = styled.div`
   margin: 0 auto;
   position: relative;
   background-color: #f4f5f6;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: ${mobileVersion}) {
     background-color: #ffffff;
-  
+    left: 10px;
+  }
 `
 
 export const ModalBlock = styled.div`
@@ -34,9 +42,7 @@ export const ModalBlock = styled.div`
   top: 20px;
   opacity: 1;
 
-
-
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: ${mobileVersion}) {
     position: absolute;
     z-index: 1;
     left: -179px;
@@ -62,7 +68,7 @@ export const ModalContent = styled.div`
   background-color: #ffffff;
   border-radius: 12px;
   position: relative;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: ${mobileVersion}) {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -86,8 +92,7 @@ export const ModalTitle = styled.h3`
   line-height: 46px;
   font-weight: 500;
   color: #000000;
-  margin-bottom: 15px;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: ${mobileVersion}) {
     font-size: 32px;
     line-height: 46px;
     font-weight: 500;
@@ -104,15 +109,15 @@ export const ModalTitle = styled.h3`
       transform: rotate(-45deg);
       position: absolute;
       top: 77px;
-      left: 30px;
+      left: 20px;
       cursor: pointer;
     }
   }
-  @media screen and (max-width: 380px) {
+  @media screen and (max-width: 320px) {
     font-size: 24px;
     line-height: 29px;
     position: relative;
-    left: 10px;
+    left: -20px;
     &:before {
       content: '';
       display: block;
@@ -125,7 +130,7 @@ export const ModalTitle = styled.h3`
       transform: rotate(-45deg);
       position: absolute;
       top: 9px;
-      left: -61px;
+      left: -20px;
       cursor: pointer;
     }
   }
@@ -139,7 +144,7 @@ export const ModalBtnClose = styled.div`
   right: 50px;
   z-index: 3;
   cursor: pointer;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: ${mobileVersion}) {
     margin-top: 10px;
   }
 `
@@ -175,7 +180,7 @@ export const ModalBtnCloseLine = styled.div`
   &:hover {
     background-color: #0080c1;
   }
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: ${mobileVersion}) {
     display: none;
   }
 `
@@ -194,7 +199,7 @@ export const ModalScroll = styled.div`
   width: 100%;
   overflow-y: scroll;
   overflow-x: hidden;
- 
+
   &::-webkit-scrollbar {
     width: 0px;
     background-color: #ffffff;
@@ -215,7 +220,7 @@ export const ModalFormNewArt = styled.form`
   -ms-flex-direction: column;
   flex-direction: column;
   width: 100%;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: ${mobileVersion}) {
     margin-top: 22px;
   }
 `
@@ -235,7 +240,7 @@ export const FormNewArtBlock = styled.div`
   -ms-flex-direction: column;
   flex-direction: column;
   margin-bottom: 14px;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: ${mobileVersion}) {
     width: 100%;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -254,7 +259,7 @@ export const FormNewArtLabel = styled.label`
   line-height: 32px;
   font-weight: 600;
   color: #000000;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: ${mobileVersion}) {
     display: none;
   }
 `
@@ -301,7 +306,7 @@ export const FormNewArtArea = styled.textarea`
     line-height: 24px;
     color: #0000004d;
   }
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: ${mobileVersion}) {
     font-family: 'Roboto', sans-serif;
     width: 100%;
     max-height: 107px;
@@ -346,7 +351,7 @@ export const FormNewArtBtnPub = styled.button`
   &:hover {
     background-color: #0080c1;
   }
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: ${mobileVersion}) {
     margin-top: 0px;
     width: 100%;
     height: 46px;
@@ -416,12 +421,12 @@ export const ReviewName = styled.p`
 export const ReviewNameSpan = styled.span`
   margin-left: 10px;
   color: #5f5f5f;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: ${mobileVersion}) {
     font-size: 14px;
     line-height: 28px;
     color: #5f5f5f;
   }
-`;
+`
 
 export const ReviewTitle = styled.h5`
   font-weight: 600;

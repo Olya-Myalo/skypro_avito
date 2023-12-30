@@ -11,8 +11,8 @@ export const ModalFeedback = ({ comments, onClose }) => {
   const modalRef = useRef(null)
   const { adId } = useParams()
   const token = useSelector((state) => state.user.access)
-  const [addComment, { isLoading }] = useAddCommentMutation(adId)
-  const [textComment, setTextComment] = useState('')
+  const [addFeedback, { isLoading }] = useAddCommentMutation(adId)
+  const [newFeedback, setNewFeedback] = useState('')
   const [error, setError] = useState(null)
 
   useEffect(() => {
@@ -31,13 +31,13 @@ export const ModalFeedback = ({ comments, onClose }) => {
   const handleAddComment = async (event) => {
     event.preventDefault()
 
-    if (!textComment) {
+    if (!newFeedback) {
       setError('Пожалуйста, введите комментарий')
       return
     }
-    if (textComment) {
-      await addComment({ text: textComment, id: adId })
-      setTextComment('')
+    if (newFeedback) {
+      await addFeedback({ text: newFeedback, id: adId })
+      setNewFeedback('')
     }
   }
 
@@ -67,8 +67,8 @@ export const ModalFeedback = ({ comments, onClose }) => {
                       cols="auto"
                       rows="5"
                       placeholder="Введите описание"
-                      value={textComment}
-                      onChange={(e) => setTextComment(e.target.value)}
+                      value={newFeedback}
+                      onChange={(e) => setNewFeedback(e.target.value)}
                     ></S.FormNewArtArea>
                   </S.FormNewArtBlock>
                 )}
@@ -77,7 +77,7 @@ export const ModalFeedback = ({ comments, onClose }) => {
                 ) : (
                   <S.FormNewArtBtnPub
                     onClick={handleAddComment}
-                    disabled={!textComment}
+                    disabled={!newFeedback}
                   >
                     {isLoading ? 'Публикация...' : 'Опубликовать'}
                   </S.FormNewArtBtnPub>

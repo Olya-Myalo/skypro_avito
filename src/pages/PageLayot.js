@@ -4,12 +4,13 @@ import Header from '../components/Header/Header'
 import * as S from './DataAd/DataAd.styled'
 import { useGetAdsQuery } from '../store/Service/serviceQuery'
 import { useSelector } from 'react-redux'
+import Loader from '../components/Loader/Loader'
 
 export function PageLayout() {
   const { data, isLoading } = useGetAdsQuery()
   const Authorization = !!useSelector((state) => state.user.access)
 
-  if (isLoading) return <div>идет загрузка</div>
+  if (isLoading) return <Loader />
 
   return (
     <S.Wrapper>
