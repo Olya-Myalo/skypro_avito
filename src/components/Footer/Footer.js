@@ -18,7 +18,6 @@ const Footer = ({ data, Authorization }) => {
   }
 
   useEffect(() => {
-    console.log(isModalOpen)
   }, [isModalOpen])
 
   return (
