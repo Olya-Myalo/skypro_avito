@@ -108,6 +108,11 @@ export const Api = createApi({
       invalidatesTags: ['Ads'],
     }),
 
+    getAllUsers: builder.query({
+      query: () => `user/all`,
+      providesTags: ['Ads'],
+    }),
+
     getAdsUser: builder.query({
       query: () => `ads/me`,
       providesTags: ['Ads'],
@@ -199,6 +204,7 @@ export const {
   useGetСurrentUserQuery,
   useUserUpdateMutation,
   useChangeAvatarMutation,
+  useLazyGetAllUsersQuery,
   useGetAdsUserQuery,
   useAddAdMutation,
   useEditAdMutation,

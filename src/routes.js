@@ -17,7 +17,7 @@ const AppRoutes = ({ user, setUser }) => {
       <Route path="/" element={<PageLayout />}>
         <Route path="/" element={<Main user={user} />} />
         <Route path="/ad/:adId" Component={DataAd} />
-        <Route path="/sellerProfile" Component={SellerProfile} />
+        <Route path="/sellerProfile/:id" Component={SellerProfile} />
       </Route>
       <Route element={<ProtectedRoute />}>
         <Route exact path="/profile" Component={Profile} />

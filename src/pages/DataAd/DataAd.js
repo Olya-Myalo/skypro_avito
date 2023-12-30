@@ -159,7 +159,7 @@ const DataAd = () => {
                           to={
                             data.user.id === parseInt(user?.id, 10)
                               ? '/profile'
-                              : '/sellerProfile'
+                              : `/sellerProfile/${data?.user.id}`
                           }
                         >
                           <S.AuthorName>{data.user.name}</S.AuthorName>
