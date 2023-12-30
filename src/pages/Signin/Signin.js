@@ -31,7 +31,6 @@ const Signin = () => {
       navigate('/')
       setError(null)
     } catch (error) {
-      console.error('Ошибка авторизации:', error.message)
       setError(error.message)
     }
   }

@@ -1,13 +1,14 @@
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import MainMenu from '../../components/MainMenu/MainMenu'
 import * as S from './SellerProfile.styled'
-import AdsComponent from '../../components/AdItem/AdItem'
 import {
   useGetAdsQuery,
   useLazyGetAllUsersQuery,
 } from '../../store/Service/serviceQuery'
 import { useEffect, useState } from 'react'
 import { formatDate } from '../../utils/formatDate'
+import AdItem from '../../components/AdItem/AdItem'
+import { Back } from '../../components/Back'
 
 const SellerProfile = () => {
   const { id } = useParams()
@@ -32,8 +33,8 @@ const SellerProfile = () => {
     if (allAds) {
       const ads = []
       for (let i = 0; i < allAds.length; i++) {
-        if (allAds[i].user_id === Number(id)) {
-          ads.push()
+        if (allAds[i].user.id === Number(id)) {
+          ads.push(allAds[i])
         }
       }
       setUserAds(ads)
@@ -44,18 +45,17 @@ const SellerProfile = () => {
     <S.MainContainer>
       <S.MainCenterBlock>
         <MainMenu />
+        <Back />
         <S.MainH2>Профиль продавца</S.MainH2>
         <S.MainProfileSell>
           <S.ProfileSellContent>
             <S.ProfileSell>
               <S.SellerLeft>
                 <S.SellerImg>
-                  <Link href="" target="_self">
-                    <S.SellerImgImg
-                      src={`http://127.0.0.1:8090/${currentUser?.avatar}`}
-                      alt=""
-                    />
-                  </Link>
+                  <S.SellerImgImg
+                    src={`http://127.0.0.1:8090/${currentUser?.avatar}`}
+                    alt=""
+                  />
                 </S.SellerImg>
               </S.SellerLeft>
               <S.SellerRight>
@@ -70,9 +70,10 @@ const SellerProfile = () => {
                 </S.SellerCity>
                 <S.SellerImgMobBlock>
                   <S.SellerImgMob>
-                    <Link href="" target="_self">
-                      <S.SellerImgMobImg src="#" alt="" />
-                    </Link>
+                    <S.SellerImgMobImg
+                      src={`http://127.0.0.1:8090/${currentUser?.avatar}`}
+                      alt=""
+                    />
                   </S.SellerImgMob>
                 </S.SellerImgMobBlock>
                 <S.SellerBtn>
@@ -86,8 +87,13 @@ const SellerProfile = () => {
           </S.ProfileSellContent>
         </S.MainProfileSell>
         <S.MainTitle>Товары продавца</S.MainTitle>
+
+        <S.MainContent>
+          <S.ContentCards>
+            <AdItem products={userAds} />
+          </S.ContentCards>
+        </S.MainContent>
       </S.MainCenterBlock>
-      <AdsComponent products={userAds} />
     </S.MainContainer>
   )
 }

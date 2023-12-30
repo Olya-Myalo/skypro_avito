@@ -12,6 +12,7 @@ import { ModalFeedback } from '../../components/Modal/ModalFeedback/ModalFeedbac
 import { formatDateAndTime } from '../../utils/formatDate'
 import { formatDate } from '../../utils/formatDate'
 import ModalEditAd from '../../components/Modal/ModalEditAd/ModalEditAd'
+import { Back } from '../../components/Back'
 
 const DataAd = () => {
   const navigate = useNavigate()
@@ -74,6 +75,7 @@ const DataAd = () => {
                 <S.ArticleLeft>
                   <S.ArticleFillImg>
                     <S.ArticleImg>
+                    <Back />
                       <S.ArticleImgImg
                         src={`http://127.0.0.1:8090/${data?.images[isImage]?.url}`}
                         alt=""

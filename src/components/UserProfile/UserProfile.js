@@ -37,7 +37,7 @@ const UserProfile = ({ user }) => {
       const updatedData = await UpdateUser(userData).unwrap()
       console.log('Пользователь успешно обновлен', updatedData)
     } catch (error) {
-      setError(error)
+      setError(error.message)
     }
   }
 
@@ -54,7 +54,7 @@ const UserProfile = ({ user }) => {
       await changeAvatar(formData)
       setAvatarUrl(URL.createObjectURL(selectedAvatar))
     } catch (error) {
-      setError(error)
+      setError(error.message)
     }
   }
 
@@ -68,7 +68,7 @@ const UserProfile = ({ user }) => {
           <S.ProfileSettings>
             <S.SettingsLeft action="#">
               <S.SettingImgImg alt="" src={avatarUrl} />
-              <div>{error}</div>
+              <S.ErrorDiv>{error}</S.ErrorDiv>
               <S.SettingsChangePhoto>
                 Заменить
                 <input
@@ -124,7 +124,7 @@ const UserProfile = ({ user }) => {
                     placeholder="+79161234567"
                   />
                 </S.SettingsDiv>
-                <div>{error}</div>
+                <S.ErrorDiv>{error}</S.ErrorDiv>
                 <S.SettingBtn id="settings-btn" type="submit">
                   Сохранить
                 </S.SettingBtn>

@@ -4,7 +4,7 @@ export const Wrapper = styled.div`
   width: 100%;
   min-height: 100%;
   overflow: hidden;
-    position: fixed;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -13,6 +13,10 @@ export const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
+  @media screen and (max-width: 620px) {
+    width: 320px;
+    height: 792px;
+  }
 `
 
 export const Container = styled.div`
@@ -90,7 +94,7 @@ export const ModalTitle = styled.h3`
   line-height: 46px;
   font-weight: 500;
   color: #000000;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 620px) {
     font-size: 32px;
     line-height: 46px;
     font-weight: 500;
@@ -111,7 +115,7 @@ export const ModalTitle = styled.h3`
       cursor: pointer;
     }
   }
-  @media screen and (max-width: 380px) {
+  @media screen and (max-width: 320px) {
     font-size: 24px;
     line-height: 29px;
     position: relative;
@@ -128,7 +132,7 @@ export const ModalTitle = styled.h3`
       transform: rotate(-45deg);
       position: absolute;
       top: 9px;
-      left: -51px;
+      left: -20px;
       cursor: pointer;
     }
   }
@@ -489,9 +493,9 @@ export const FormNewArtImgImg = styled.div`
     object-fit: cover;
   }
 `
-export const FormNewArtImgImg2 =styled.img`
-    width: 90px;
-    height: 90px;
+export const FormNewArtImgImg2 = styled.img`
+  width: 90px;
+  height: 90px;
 `
 export const FormNewArtiLabel = styled.label``
 export const FormNewArtInputPrice = styled.input`
@@ -611,12 +615,16 @@ export const FormNewArtBtnPub = styled.button`
   &:hover {
     background-color: #0080c1;
   }
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 320px) {
     margin-top: 10px;
-    width: 100%;
+    width: 278px;
     height: 46px;
+    margin-bottom: 20px;
     &:hover {
       background-color: #0080c1;
     }
   }
+`
+export const ErrorDiv = styled.div`
+  color: red;
 `

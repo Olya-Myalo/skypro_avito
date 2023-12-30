@@ -4,6 +4,7 @@ import {
   useAddImgAdMutation,
 } from '../../../store/Service/serviceQuery'
 import * as S from './ModalAddAd.styled'
+// import Arrow from '../../../assets/arrow.svg'
 
 export const ModalAddAd = ({ data, onClose }) => {
   const [title, setTitle] = useState('')
@@ -11,7 +12,7 @@ export const ModalAddAd = ({ data, onClose }) => {
   const [price, setPrice] = useState('')
   const [isImageSrc, setIsImage] = useState([])
   const [selectedImages, setSelectedImages] = useState([])
-  const [isError, setIsError] = useState('')
+  const [error, setError] = useState('')
   const adId = data.id
   const [postAdsImage] = useAddImgAdMutation(adId)
   const [addAds] = useAddAdMutation()
@@ -47,7 +48,7 @@ export const ModalAddAd = ({ data, onClose }) => {
         await postAdsImage({ id: result.data.id, file: formData })
       }
     } catch (error) {
-      setIsError(error)
+      setError(error.message)
     }
   }
 
@@ -55,7 +56,7 @@ export const ModalAddAd = ({ data, onClose }) => {
     <S.Wrapper>
       <S.ModalBlock>
         <S.ModalContent>
-          <S.ModalTitle>Новое объявление</S.ModalTitle>
+          <S.ModalTitle onClick={onClose} >Новое объявление</S.ModalTitle>
           <S.ModalBtnClose onClick={onClose}>
             <S.ModalBtnCloseLine></S.ModalBtnCloseLine>
           </S.ModalBtnClose>
@@ -121,7 +122,7 @@ export const ModalAddAd = ({ data, onClose }) => {
                 onChange={(e) => setPrice(e.target.value)}
               />
             </S.FormNewArtBlock>
-            <div>{isError}</div>
+            <S.ErrorDiv>{error}</S.ErrorDiv>
             <S.FormNewArtBtnPub
               onClick={() => {
                 createAd()

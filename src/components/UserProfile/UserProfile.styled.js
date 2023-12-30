@@ -240,3 +240,5 @@ export const MainTitle = styled.h3`
     margin-bottom: 30px;
   }
 `
+export const ErrorDiv = styled.div`
+color: red;`

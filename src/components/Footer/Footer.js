@@ -1,7 +1,10 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import * as S from './Footer.styled'
 import { NavLink } from 'react-router-dom'
 import ModalAddAd from '../Modal/ModalAddAd/ModalAddAd'
+import HomeLogo from '../../assets/home.svg'
+import NewAdLogo from '../../assets/newAd.svg'
+import ProfileLogo from '../../assets/profile.svg'
 
 const Footer = ({ data, Authorization }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -14,22 +17,24 @@ const Footer = ({ data, Authorization }) => {
     setIsModalOpen(false)
   }
 
+  useEffect(() => {
+    console.log(isModalOpen)
+  }, [isModalOpen])
+
   return (
     <S.Footer>
       <S.FooterContainer>
         <S.FooterImg>
-          <NavLink to="/" target="_self">
-            <S.FooterImgImg src="img/footer1.svg" alt="home" />
+          <NavLink to="/">
+            <S.FooterImgImg src={HomeLogo} alt="home" />
           </NavLink>
         </S.FooterImg>
         <S.FooterImg onClick={openModal}>
-          <a href="" target="_self">
-            <S.FooterImgImg src="img/footer2.png" alt="home" />
-          </a>
+            <S.FooterImgImg src={NewAdLogo} alt="home" />
         </S.FooterImg>
         <S.FooterImg>
-          <NavLink to={Authorization ? '/profile' : '/signin'} target="_self">
-            <S.FooterImgImg src="img/footer3.svg" alt="home" />
+          <NavLink to={Authorization ? '/profile' : '/signin'}>
+            <S.FooterImgImg src={ProfileLogo} alt="home" />
           </NavLink>
         </S.FooterImg>
       </S.FooterContainer>

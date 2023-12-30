@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 const maxMobileWidthTwo = '620px'
@@ -40,7 +41,7 @@ export const Logo = styled.div`
   }
 `
 
-export const LogoMobLink = styled.a`
+export const LogoMobLink = styled(Link)`
   display: block;
   width: 32px;
   height: 32px;

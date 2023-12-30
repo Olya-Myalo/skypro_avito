@@ -650,4 +650,5 @@ export const DeleteImageBtn = styled.button`
     scale: 1.1;
   }
 `
-
+export const ErrorDiv = styled.div`
+color: red;`

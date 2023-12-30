@@ -25,8 +25,6 @@ export const Container = styled.div`
   }
 `
 
-// export const Main = styled.main``
-
 export const MainContainer = styled.div`
   max-width: 1178px;
   margin: 0 auto;
@@ -49,8 +47,6 @@ export const MainContent = styled.div`
     margin: 0 auto;
   }
 `
-
-
 export const ContentCards = styled.div`
   max-width: 1158px;
   width: 100%;

@@ -12,7 +12,7 @@ export const ModalEditAd = ({ data, onClose }) => {
   const [description, setDescription] = useState(data.description)
   const [price, setPrice] = useState(data.price)
   const [isImages, setIsImages] = useState([])
-  const [isError, setIsError] = useState('')
+  const [error, setError] = useState('')
   const id = data.id
   const [deleteImages] = useDeleteImgAdMutation(id)
   const [postImage] = useAddImgAdMutation(id)
@@ -60,7 +60,7 @@ export const ModalEditAd = ({ data, onClose }) => {
       await deleteImages(data)
       setIsImages((images) => images.filter((img) => img !== image))
     } catch (error) {
-      setIsError(error)
+      setError(error.message)
     }
   }
 
@@ -154,7 +154,7 @@ export const ModalEditAd = ({ data, onClose }) => {
                 onChange={(e) => setPrice(e.target.value)}
               />
             </S.FormNewArtBlock>
-            <div>{isError}</div>
+            <S.ErrorDiv>{error}</S.ErrorDiv>
             <S.FormNewArtBtnPub
               onClick={() => {
                 clickChangeAd()

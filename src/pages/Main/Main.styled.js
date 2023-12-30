@@ -12,6 +12,7 @@ margin: 0 auto;
 padding: 52px 10px 37px;
 @media screen and (max-width: ${maxMobileWidthTwo}) {
 padding: 85px 10px 84px;
+position: relative;
 }
 `
 export const MainH2 = styled.h2`
@@ -25,8 +26,6 @@ margin-bottom: 30px;
     border-top: 2px solid #0080C1;
     border-left: 2px solid #0080C1;
   }
-
-
   @media screen and (max-width: ${maxMobileWidthTwo}) {
   font-size: 24px;
   line-height: 29px;
@@ -34,21 +33,6 @@ margin-bottom: 30px;
   margin-bottom: 20px;
   text-align: center;
   position: relative;
-
-  &::before {
-    content: "";
-    display: block;
-    width: 12px;
-    height: 12px;
-    background-color: transparent;
-    border-top: 2px solid #000000;
-    border-left: 2px solid #000000;
-    transform: rotate(-45deg);
-    position: absolute;
-    top: 9px;
-    left: 13px;
-    cursor: pointer;
-  }
 }
 `
 export const MainContent = styled.div`
