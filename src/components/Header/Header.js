@@ -3,18 +3,12 @@ import * as S from './Header.styled'
 import { ModalAddAd } from '../Modal/ModalAddAd/ModalAddAd'
 import { useState } from 'react'
 
-const Header = ({data,  profileKey, Authorization }) => {
+const Header = ({ data, Authorization }) => {
   const navigate = useNavigate()
   const [isModalOpen, setIsModalOpen] = useState(false)
 
-  const Logut = () => {
-    navigate('/')
-    localStorage.clear()
-    window.location.reload()
-  }
-
   const openModal = () => {
-    setIsModalOpen(true) 
+    setIsModalOpen(true)
   }
 
   const closeModal = () => {
@@ -25,18 +19,15 @@ const Header = ({data,  profileKey, Authorization }) => {
     <S.Header>
       <S.HeaderNav>
         <S.Logo>
-          <S.LogoMobLink>
+          <S.LogoMobLink to="/">
             <S.LogoMobImg src="/img/logo-mob.png" alt="logo" />
           </S.LogoMobLink>
         </S.Logo>
-        {profileKey ? (
+        {Authorization ? (
           <>
-          <S.HeaderBtnPutAd onClick={openModal}>Разместить объявление</S.HeaderBtnPutAd>
-            <S.HeaderBtnLk onClick={Logut}>Выйти</S.HeaderBtnLk>
-          </>
-        ) : Authorization ? (
-          <>
-            <S.HeaderBtnPutAd onClick={openModal}>Разместить объявление</S.HeaderBtnPutAd>
+            <S.HeaderBtnPutAd onClick={openModal}>
+              Разместить объявление
+            </S.HeaderBtnPutAd>
             <S.HeaderBtnLk
               onClick={() => {
                 navigate('/profile')
@@ -55,11 +46,9 @@ const Header = ({data,  profileKey, Authorization }) => {
           </S.HeaderBtnLkEnter>
         )}
       </S.HeaderNav>
-      {isModalOpen && 
-        <ModalAddAd data={data} onClose={closeModal}/>}
+      {isModalOpen && <ModalAddAd data={data} onClose={closeModal} />}
     </S.Header>
   )
 }
 
 export default Header
-

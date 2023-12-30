@@ -6,8 +6,6 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
     baseUrl: 'http://localhost:8090/',
     prepareHeaders: (headers, { getState }) => {
       const token = getState().user.access
-      console.log('state', getState())
-      // console.debug('Использую токен из стора', { token })
       if (token) {
         headers.set('authorization', `Bearer ${token}`)
       }
@@ -17,7 +15,6 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
   })
 
   const result = await baseQuery(args, api, extraOptions)
-  // console.debug('Результат первого запроса', { result })
 
   if (result?.error?.status !== 401) {
     return result
@@ -30,34 +27,38 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
   }
 
   const { user } = api.getState()
-  // console.debug('Данные пользователя в сторе', { auth })
+
   if (!user.refresh) {
     return forceLogout()
   }
   const refreshResult = await baseQuery(
-    () => ({
+    {
       url: 'auth/login',
       method: 'PUT',
-      body: { access: user.access, refresh: user.refresh },
-    }),
+      body: { access_token: user.access, refresh_token: user.refresh },
+    },
     api,
-    extraOptions,
+    extraOptions
   )
 
   // console.debug('Результат запроса на обновление токена', { refreshResult })
 
-  if (!refreshResult.data.access) {
+  if (!refreshResult.data.access_token) {
     return forceLogout()
   }
 
-  api.dispatch(setAuth({ ...user, access: refreshResult.data.access }))
+  api.dispatch(
+    setAuth({
+      ...user,
+      access: refreshResult.data.access_token,
+      refresh: refreshResult.data.refresh_token,
+    })
+  )
   const retryResult = await baseQuery(args, api, extraOptions)
 
   if (retryResult?.error?.status === 401) {
     return forceLogout()
   }
-
-  // console.debug('Повторный запрос завершился успешно')
 
   return retryResult
 }
@@ -83,49 +84,54 @@ export const Api = createApi({
       query: (adId) => `ads/${adId}`,
       providesTags: ['Ads'],
     }),
-    getUserInfo: builder.query({
+
+    getСurrentUser: builder.query({
       query: () => `user`,
       providesTags: ['Ads'],
     }),
+
+    userUpdate: builder.mutation({
+      query: (userData) => ({
+        url: 'user',
+        method: 'PATCH',
+        body: userData,
+      }),
+      invalidatesTags: ['Ads'],
+    }),
+
+    changeAvatar: builder.mutation({
+      query: (fileData) => ({
+        url: '/user/avatar',
+        method: 'POST',
+        body: fileData,
+      }),
+      invalidatesTags: ['Ads'],
+    }),
+
+    getAllUsers: builder.query({
+      query: () => `user/all`,
+      providesTags: ['Ads'],
+    }),
+
     getAdsUser: builder.query({
       query: () => `ads/me`,
       providesTags: ['Ads'],
     }),
-    getAllCurrentUserComments: builder.query({
-      query: (id) => `ads/${id}/comments`,
-      providesTags: (result) =>
-        result
-          ? [
-              ...result.map(({ id }) => ({ type: 'Ads', id })),
-              { type: 'Ads', id: 'LIST' },
-            ]
-          : [{ type: 'Ads', id: 'LIST' }],
-    }),
-    getAllComments: builder.query({
-      query: () => 'comments',
-      providesTags: ['Ads'],
-    }),
-    addComment: builder.mutation({
-      query: ({ id, text }) => ({
-        url: `ads/${id}/comments`,
-        method: 'POST',
-        body: { text },
-      }),
-      invalidatesTags: [{ type: 'Ads', id: 'LIST' }],
-    }),
-    addAds: builder.mutation({
+
+    addAd: builder.mutation({
       query: ({ title, description, price }) => ({
         url: `ads?title=${encodeURIComponent(
-          title,
+          title
         )}&description=${encodeURIComponent(
-          description,
+          description
         )}&price=${encodeURIComponent(price)}`,
         method: 'POST',
         body: 'file',
       }),
       invalidatesTags: ['Ads'],
     }),
-    editAds: builder.mutation({
+
+    editAd: builder.mutation({
       query: ({ title, description, price, id }) => ({
         url: `ads/${id}`,
         method: 'PATCH',
@@ -137,7 +143,40 @@ export const Api = createApi({
       }),
       invalidatesTags: ['Ads'],
     }),
-    addImgAds: builder.mutation({
+
+    delAd: builder.mutation({
+      query: ({ adId }) => {
+        return { url: `ads/${adId}`, method: 'DELETE' }
+      },
+      invalidatesTags: ['Ads'],
+    }),
+
+    getAllCurrentUserComments: builder.query({
+      query: (id) => `ads/${id}/comments`,
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ id }) => ({ type: 'Ads', id })),
+              { type: 'Ads', id: 'LIST' },
+            ]
+          : [{ type: 'Ads', id: 'LIST' }],
+    }),
+
+    getAllComments: builder.query({
+      query: () => 'comments',
+      providesTags: ['Ads'],
+    }),
+
+    addComment: builder.mutation({
+      query: ({ id, text }) => ({
+        url: `ads/${id}/comments`,
+        method: 'POST',
+        body: { text },
+      }),
+      invalidatesTags: [{ type: 'Ads', id: 'LIST' }],
+    }),
+
+    addImgAd: builder.mutation({
       query: ({ id, file }) => ({
         url: `ads/${id}/image`,
         method: 'POST',
@@ -146,7 +185,7 @@ export const Api = createApi({
       invalidatesTags: ['Ads'],
     }),
 
-    delImgAds: builder.mutation({
+    deleteImgAd: builder.mutation({
       query: (data) => {
         const url = data.image.url
         return {
@@ -156,46 +195,24 @@ export const Api = createApi({
       },
       invalidatesTags: ['Ads'],
     }),
-    delAdsId: builder.mutation({
-      query: ({ adId }) => {
-        return { url: `ads/${adId}`, method: 'DELETE' }
-      },
-      invalidatesTags: ['Ads'],
-    }),
-    userUpdate: builder.mutation({
-      query: (userData) => ({
-        url: 'user',
-        method: 'PATCH',
-        body: userData,
-      }),
-      invalidatesTags: ['Ads'],
-    }),
-    changeAvatar: builder.mutation({
-      query: (fileData) => ({
-        url: '/user/avatar',
-        method: 'POST',
-        body: fileData,
-      }),
-      invalidatesTags: ['Ads'],
-    }),
   }),
 })
 
 export const {
   useGetAdsQuery,
   useGetAdsIdQuery,
-  useGetUserInfoQuery,
-  useRefreshTokenMutation,
-  useGetAllCommentsQuery,
-  useAddCommentMutation,
-  useGetAllCurrentUserCommentsQuery,
-  useAddAdsMutation,
-  useEditAdsMutation,
-  useAddImgAdsMutation,
-  useDelImgAdsMutation,
-  useDelAdsIdMutation,
+  useGetСurrentUserQuery,
   useUserUpdateMutation,
   useChangeAvatarMutation,
+  useLazyGetAllUsersQuery,
   useGetAdsUserQuery,
-  useGetTokenQuery,
+  useAddAdMutation,
+  useEditAdMutation,
+  useDelAdMutation,
+  useGetAllCurrentUserCommentsQuery,
+  useGetAllCommentsQuery,
+  useAddCommentMutation,
+  useAddImgAdMutation,
+  useDeleteImgAdMutation,
+  useLazyGetUserInfoQuery,
 } = Api

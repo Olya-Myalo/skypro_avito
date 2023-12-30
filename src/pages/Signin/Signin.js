@@ -26,13 +26,11 @@ const Signin = () => {
         user: response.user,
       }
 
-      // Вызовите функцию dispatch, чтобы сохранить токен в состоянии
       dispatch(setAuth(tokens))
 
       navigate('/')
       setError(null)
     } catch (error) {
-      console.error('Ошибка авторизации:', error.message)
       setError(error.message)
     }
   }

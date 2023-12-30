@@ -1,10 +1,7 @@
 import styled from 'styled-components'
 
-const maxMobileWidthTwo = '768px'
-// @media screen and (max-width: ${maxMobileWidthTwo}) {
-//     left: calc(50% - 160px);
-//     top: 55px;
-//   }
+const mobileVersion = '620px'
+
 export const Wrapper = styled.div`
   width: 100%;
   min-height: 100%;
@@ -24,7 +21,7 @@ export const ModalBlock = styled.div`
   left: calc(50% - 183px);
   top: calc(50% - 219.5px);
   opacity: 1;
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     position: absolute;
     z-index: 2;
     left: calc(50% - 160px);
@@ -41,7 +38,7 @@ export const ModalFormLogin = styled.form`
   flex-direction: column;
   align-items: center;
   padding: 43px 47px 47px 40px;
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     width: 320px;
     height: auto;
     background-color: #ffffff;
@@ -58,7 +55,7 @@ export const ModalLogo = styled.div`
   margin-bottom: 34px;
   background-color: transparent;
 
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     width: 120px;
     height: 18px;
     margin-bottom: 30px;
@@ -68,7 +65,7 @@ export const ModalLogo = styled.div`
 export const ModalLogoImg = styled.img`
   width: 140px;
   height: auto;
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     width: 120px;
     height: auto;
   }
@@ -99,7 +96,7 @@ export const ModalInput = styled.input`
     color: #d0cece;
   }
 
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     width: 100%;
     border: 1px solid #d0cece;
     padding: 9px 17px;
@@ -143,7 +140,7 @@ export const ModalBtnEnter = styled.button`
     background-color: #0080c1;
   }
 
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     height: 46px;
     margin-top: 40px;
     margin-bottom: 10px;
@@ -163,7 +160,7 @@ export const ModalBtnEnterA = styled.a`
   display: flex;
   align-items: center;
   justify-content: center;
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     font-size: 16px;
     line-height: 24px;
   }
@@ -192,7 +189,7 @@ export const ModalBtnSingup = styled.button`
     background-color: #d9d9d9;
   }
 
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     height: 46px;
     border: 1px solid #d9d9d9;
     font-size: 16px;
@@ -212,7 +209,7 @@ display: flex;
 align-items: center;
 justify-content: center;
 
-@media screen and (max-width: ${maxMobileWidthTwo}) {
+@media screen and (max-width: ${mobileVersion}) {
 font-size: 16px;
 line-height: 24px;
 }
@@ -225,42 +222,3 @@ bgc: blue;
 
 export const ErrorDiv = styled.div`
 color: red;`
-// export const ContentCards = styled.div``
-// export const ContentCards = styled.div``
-// export const ContentCards = styled.div``
-// export const ContentCards = styled.div``
-// export const ContentCards = styled.div``
-
-// export const ContentCards = styled.div``
-
-// export const ContentCards = styled.div``
-// export const ContentCards = styled.div``
-// export const ContentCards = styled.div``
-// export const ContentCards = styled.div``
-
-// export const ContentCards = styled.div``
-
-// export const ContentCards = styled.div``
-// export const ContentCards = styled.div``
-// export const ContentCards = styled.div``
-// export const ContentCards = styled.div``
-// export const ContentCards = styled.div``
-// export const ContentCards = styled.div``
-// export const ContentCards = styled.div``
-
-// export const ContentCards = styled.div``
-
-// export const ContentCards = styled.div``
-// export const ContentCards = styled.div``
-// export const ContentCards = styled.div``
-// export const ContentCards = styled.div``
-// export const ContentCards = styled.div``
-// export const ContentCards = styled.div``
-// export const ContentCards = styled.div``
-
-// export const ContentCards = styled.div``
-
-// export const ContentCards = styled.div``
-// export const ContentCards = styled.div``
-// export const ContentCards = styled.div``
-// export const ContentCards = styled.div``

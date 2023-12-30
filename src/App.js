@@ -1,4 +1,3 @@
-import * as S from './App.styled'
 import AppRoutes from './routes'
 import { UserContext } from './context'
 import { useState } from 'react'
@@ -8,9 +7,7 @@ function App() {
 
   return (
     <UserContext.Provider value={user}>
-        <S.MainApp>
-          <AppRoutes user={user} setUser={setUser} />
-        </S.MainApp>
+      <AppRoutes user={user} setUser={setUser} />
     </UserContext.Provider>
   )
 }

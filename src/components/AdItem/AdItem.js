@@ -3,7 +3,7 @@ import * as S from './AdItem.styled'
 import { formatDateAndTime } from '../../utils/formatDate'
 
 const AdItem = ({ products }) => {
-  if (!products) return <div>Loading</div>
+  if (!products) return <div>объявлений нет</div>
 
   return (
     <>

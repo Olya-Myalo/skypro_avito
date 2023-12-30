@@ -1,8 +1,6 @@
 import styled from 'styled-components'
 
-const maxMobileWidthTwo = '768px'
-const maxMobileWidth = '966px'
-// const maxMobileWidthThree = '1158px'
+const mobileVersion = '620px'
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -18,7 +16,7 @@ export const Container = styled.div`
   margin: 0 auto;
   background-color: #ffffff;
   // height: 100vh;
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     width: 100%;
     min-width: 320px;
   }
@@ -34,7 +32,7 @@ export const MainArtic = styled.div`
   margin: 0 auto;
   padding: 0 5px 70px;
 
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     max-width: 1178px;
     width: 100%;
     padding: 55px 0 0px;
@@ -46,7 +44,7 @@ export const ArticContent = styled.div`
   display: flex;
   align-items: top;
   justify-content: center;
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -57,11 +55,11 @@ export const ArticContent = styled.div`
 export const ArticleLeft = styled.div`
   max-width: 480px;
   margin-right: 54px;
-  @media screen and (max-width: ${maxMobileWidth}) {
+  @media screen and (max-width: 966px) {
     margin-right: 20px;
   }
 
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     max-width: 100%;
     width: 100%;
     min-width: 320px;
@@ -84,7 +82,7 @@ export const ArticleFillImg = styled.div`
     border-left: 2px solid #0080c1;
   }
 
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     max-width: 100%;
     width: 100%;
     overflow: hidden;
@@ -93,30 +91,16 @@ export const ArticleFillImg = styled.div`
     align-items: center;
     justify-content: center;
     position: relative;
-    &::before {
-      content: '';
-      display: block;
-      width: 23px;
-      height: 23px;
-      background-color: transparent;
-      border-top: 2px solid #000000;
-      border-left: 2px solid #000000;
-      transform: rotate(-45deg);
-      position: absolute;
-      top: 24px;
-      left: 32px;
-      cursor: pointer;
-    }
   }
 `
 
 export const ArticleImg = styled.div`
-width: 100%;
+  width: 100%;
   height: 480px;
   background-color: #f0f0f0;
   margin: 0 5px;
 
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     width: 100%;
     min-width: 320px;
     height: auto;
@@ -148,7 +132,7 @@ export const ArticleImgBar = styled.div`
   overflow: hidden;
   margin-left: -5px;
 
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     display: none;
   }
 `
@@ -175,7 +159,7 @@ export const ArticleImgBarDivImg = styled.img`
 
 export const ArticleImgBarMob = styled.div`
   display: none;
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     display: block;
     width: 68px;
     height: 8px;
@@ -190,7 +174,7 @@ export const ArticleImgBarMob = styled.div`
 export const ImgBarMobCircle = styled.div`
   background-color: #ffffff;
 
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     width: 8px;
     height: 8px;
     border-radius: 50%;
@@ -206,7 +190,7 @@ export const ImgBarMobCircleActive = styled(ImgBarMobCircle)`
 
 export const ArticleRight = styled.div`
   max-width: 621px;
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     max-width: 100%;
     width: 100%;
     padding: 0 20px;
@@ -224,7 +208,7 @@ export const ArticleTitle = styled.h3`
   line-height: 46px;
   font-weight: 500;
   color: #000000;
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     margin-bottom: 10px;
     font-size: 18px;
     line-height: 1;
@@ -233,7 +217,7 @@ export const ArticleTitle = styled.h3`
 
 export const ArticleInfo = styled.div`
   margin-bottom: 34px;
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     margin-bottom: 20px;
   }
 `
@@ -242,7 +226,7 @@ export const ArticleDate = styled.p`
   line-height: 21px;
   color: #5f5f5f;
   margin-bottom: 4px;
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     font-size: 14px;
     line-height: 17px;
     color: #5f5f5f;
@@ -255,7 +239,7 @@ export const ArticleCity = styled.p`
   color: #5f5f5f;
   margin-bottom: 4px;
 
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     font-size: 14px;
     line-height: 17px;
     color: #5f5f5f;
@@ -267,7 +251,7 @@ export const ArticleLink = styled.a`
   font-size: 16px;
   line-height: 21px;
   color: #009ee4;
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     font-size: 14px;
     line-height: 19px;
     color: #009ee4;
@@ -279,7 +263,7 @@ export const ArticlePrice = styled.p`
   line-height: 39px;
   font-weight: 700;
   margin-bottom: 20px;
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     font-size: 18px;
     line-height: 25px;
     font-weight: 700;
@@ -309,11 +293,11 @@ export const ArticleBtnReact = styled.button`
     background-color: #0080c1;
   }
 
-  @media screen and (max-width: ${maxMobileWidth}) {
+  @media screen and (max-width: 966px) {
     width: 225px;
     margin-right: 0;
   }
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     width: 100%;
     height: 57px;
     font-size: 14px;
@@ -338,10 +322,10 @@ export const ArticleBtnRemove = styled.button`
     background-color: #0080c1;
   }
 
-  @media screen and (max-width: ${maxMobileWidth}) {
+  @media screen and (max-width: 966px) {
     width: 225px;
   }
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     width: 100%;
     height: 57px;
     font-size: 14px;
@@ -356,21 +340,16 @@ export const ArticleAuthor = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     margin-top: 30px;
     margin-bottom: 30px;
   }
 `
-
-export const AuthorImg = styled.div`
+export const AuthorImg = styled.img`
   width: 40px;
   height: 40px;
   background-color: #f0f0f0;
   border-radius: 50%;
-`
-export const AuthorImgImg = styled.img`
-  width: 100%;
-  height: auto;
   display: block;
   -o-object-fit: cover;
   object-fit: cover;
@@ -385,7 +364,7 @@ export const AuthorName = styled.p`
   font-weight: 600;
   color: #009ee4;
 
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     font-size: 18px;
     line-height: 23px;
     font-weight: 600;
@@ -396,7 +375,7 @@ export const AuthorAbout = styled.p`
   font-size: 16px;
   line-height: 32px;
   color: #5f5f5f;
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     font-size: 14px;
     line-height: 28px;
   }
@@ -406,7 +385,7 @@ export const MainContainer = styled.div`
   max-width: 1178px;
   margin: 0 auto;
   padding: 0px 5px;
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     padding: 0 20px 0;
   }
 `
@@ -418,7 +397,7 @@ export const MainTitle = styled.h3`
   line-height: 46px;
   font-weight: 500;
   color: #000000;
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     margin-bottom: 14px;
     padding: 0;
     font-size: 18px;
@@ -430,7 +409,7 @@ export const MainContent = styled.div`
   max-width: 792px;
   width: 100%;
   padding: 0 5px 117px;
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     width: 100%;
     margin: 0 auto;
     padding: 0 0 84px;

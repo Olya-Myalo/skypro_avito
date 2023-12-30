@@ -37,7 +37,6 @@ const Signup = () => {
       navigate('/')
       setError(null)
     } catch (error) {
-      console.error('Ошибка при регистрации:', error.message)
       setError(error.message)
     }
   }

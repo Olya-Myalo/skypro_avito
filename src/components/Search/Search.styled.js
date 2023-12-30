@@ -1,7 +1,7 @@
 
 import styled from 'styled-components'
-// const maxMobileWidth = '890px'
-const maxMobileWidthTwo = '620px'
+
+const mobileVersion = '620px'
 
 export const MainSearch = styled.div`
   width: 100%;
@@ -13,7 +13,7 @@ export const MainSearch = styled.div`
   margin: 0 auto;
   padding: 31px 10px 0px;
 
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     width: 100%;
     height: 55px;
     background-color: #009ee4;
@@ -27,9 +27,8 @@ export const MainSearch = styled.div`
   }
 `
 
-
 export const SearchLogoLink = styled.a`
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     display: none;
   }
 `
@@ -37,18 +36,16 @@ export const SearchLogoImg = styled.img`
   width: 54px;
   height: auto;
 `
-
 export const SearchLogoMobLink = styled.a`
   display: none;
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     display: block;
     width: 32px;
     height: 32px;
   }
 `
-
 export const SearchLogoMobImg = styled.img`
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     width: 32px;
     height: auto;
     display: block;
@@ -56,14 +53,12 @@ export const SearchLogoMobImg = styled.img`
     object-fit: cover;
   }
 `
-
-
 export const SearchForm = styled.form`
   margin-left: 60px;
   max-width: 1044px;
   width: 100%;
   display: flex;
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     margin-left: 10px;
     max-width: 1044px;
     width: 100%;
@@ -103,16 +98,14 @@ export const SearchText = styled.input`
     line-height: 24px;
   }
 
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     display: none;
   }
 `
-
-
 export const SearchTextMob = styled.input`
   display: none;
 
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     display: inline-block;
     width: 100%;
     height: 32px;
@@ -141,8 +134,6 @@ export const SearchTextMob = styled.input`
     }
   }
 `
-
-
 export const SearchBtn = styled.button`
 margin-left: 10px;
 width: 158px;
@@ -158,48 +149,7 @@ color: #FFFFFF;
     background-color: #0080c1;
   }
 
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     display: none;
   }
 `
-
-
-// export const Wrapper = styled.div``
-// export const Wrapper = styled.div``
-// export const Wrapper = styled.div``
-// export const Wrapper = styled.div``
-// export const Wrapper = styled.div``
-// export const Wrapper = styled.div``
-// export const Wrapper = styled.div``
-// export const Wrapper = styled.div``
-// export const Wrapper = styled.div``
-// export const Wrapper = styled.div``
-// export const Wrapper = styled.div``
-// export const Wrapper = styled.div``
-// export const Wrapper = styled.div``
-// export const Wrapper = styled.div``
-// export const Wrapper = styled.div``
-// export const Wrapper = styled.div``
-// export const Wrapper = styled.div``
-// export const Wrapper = styled.div``
-// export const Wrapper = styled.div``
-// export const Wrapper = styled.div``
-// export const Wrapper = styled.div``
-// export const Wrapper = styled.div``
-// export const Wrapper = styled.div``
-// export const Wrapper = styled.div``
-// export const Wrapper = styled.div``
-// export const Wrapper = styled.div``
-// export const Wrapper = styled.div``
-// export const Wrapper = styled.div``
-// export const Wrapper = styled.div``
-// export const Wrapper = styled.div``
-// export const Wrapper = styled.div``
-// export const Wrapper = styled.div``
-// export const Wrapper = styled.div``
-// export const Wrapper = styled.div``
-// export const Wrapper = styled.div``
-// export const Wrapper = styled.div``
-// export const Wrapper = styled.div``
-// export const Wrapper = styled.div``
-// export const Wrapper = styled.div``

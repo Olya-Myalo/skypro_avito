@@ -1,37 +1,37 @@
 import { styled } from 'styled-components'
+const mobileVersion = '620px'
 
 export const Wrapper = styled.div`
   width: 100%;
   min-height: 100%;
   overflow: hidden;
-    position: fixed;
+  position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
+  @media screen and (max-width: ${mobileVersion}) {
+    width: 320px;
+    background-color: #ffffff;
+  }
 `
-
 export const Container = styled.div`
   max-width: 100%;
   height: 100vh;
   margin: 0 auto;
   position: relative;
   background-color: #f4f5f6;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: ${mobileVersion}) {
     background-color: #ffffff;
   }
 `
-
 export const ModalBlock = styled.div`
   width: 100vw;
   height: 100vh;
   position: fixed;
-  top: 0;
-  left: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -41,11 +41,10 @@ export const ModalBlock = styled.div`
   -moz-transition: opacity 200ms ease-in;
   transition: opacity 200ms ease-in;
   pointer-events: auto;
-
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: ${mobileVersion}) {
     position: absolute;
     z-index: 1;
-    left: -5px;
+    left: 0px;
     opacity: 1;
   }
 `
@@ -67,7 +66,7 @@ export const ModalContent = styled.div`
   background-color: #ffffff;
   border-radius: 12px;
   position: relative;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: ${mobileVersion}) {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -78,10 +77,9 @@ export const ModalContent = styled.div`
     -webkit-box-align: start;
     -ms-flex-align: start;
     align-items: center;
-    width: 100%;
-    min-width: 320px;
-    height: auto;
-    padding: 0 20px 0;
+    width: 320px;
+    border-radius: 0;
+    padding: 30px 20px 0;
   }
 `
 
@@ -90,32 +88,23 @@ export const ModalTitle = styled.h3`
   line-height: 46px;
   font-weight: 500;
   color: #000000;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: ${mobileVersion}) {
+   display: none;
+    }
+  }
+  @media screen and (max-width: 380px) {
+    display: none;
+    }
+  }
+`
+export const ModalMobTitle = styled.h3`
+  display: none;
+  @media screen and (max-width: ${mobileVersion}) {
+    display: block;
     font-size: 32px;
     line-height: 46px;
     font-weight: 500;
     color: #000000;
-    &:before {
-      content: '';
-      display: block;
-      width: 15px;
-      height: 15px;
-      background-color: transparent;
-      border-top: 2px solid #000000;
-      border-left: 2px solid #000000;
-      -webkit-transform: rotate(-45deg);
-      transform: rotate(-45deg);
-      position: absolute;
-      top: 77px;
-      left: 30px;
-      cursor: pointer;
-    }
-  }
-  @media screen and (max-width: 380px) {
-    font-size: 24px;
-    line-height: 29px;
-    position: relative;
-    left: -20px;
     &:before {
       content: '';
       display: block;
@@ -127,13 +116,32 @@ export const ModalTitle = styled.h3`
       -webkit-transform: rotate(-45deg);
       transform: rotate(-45deg);
       position: absolute;
+      top: 55px;
+      left: 30px;
+      cursor: pointer;
+    }
+  }
+  @media screen and (max-width: 320px) {
+    font-size: 24px;
+    line-height: 29px;
+    position: relative;
+    &:before {
+      content: '';
+      display: block;
+      width: 15px;
+      height: 15px;
+      background-color: transparent;
+      border-top: 2px solid #000000;
+      border-left: 2px solid #000000;
+      -webkit-transform: rotate(-45deg);
+      transform: rotate(-45deg);
+      position: absolute;
       top: 9px;
-      left: -67px;
+      left: -61px;
       cursor: pointer;
     }
   }
 `
-
 export const ModalBtnClose = styled.div`
   width: 23px;
   height: 23px;
@@ -142,11 +150,10 @@ export const ModalBtnClose = styled.div`
   right: 50px;
   z-index: 3;
   cursor: pointer;
-  @media screen and (max-width: 600px) {
-    margin-top: 10px;
+  @media screen and (max-width: ${mobileVersion}) {
+    margin-top: 5px;
   }
 `
-
 export const ModalBtnCloseLine = styled.div`
   position: relative;
   width: 100%;
@@ -178,7 +185,7 @@ export const ModalBtnCloseLine = styled.div`
   &:hover {
     background-color: #0080c1;
   }
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: ${mobileVersion}) {
     display: none;
   }
 `
@@ -193,8 +200,8 @@ export const ModalFormNewArt = styled.form`
   -ms-flex-direction: column;
   flex-direction: column;
   width: 100%;
-  @media screen and (max-width: 600px) {
-    margin-top: 10px;
+  @media screen and (max-width: ${mobileVersion}) {
+    margin-top: 5px;
   }
 `
 
@@ -208,7 +215,7 @@ export const FormNewArtBlock = styled.div`
   -ms-flex-direction: column;
   flex-direction: column;
   margin-bottom: 20px;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: ${mobileVersion}) {
     width: 100%;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -221,12 +228,12 @@ export const FormNewArtBlock = styled.div`
   }
 `
 
-export const FormNewArtLabel = styled.label`
+export const FormNewArtLabel = styled.p`
   margin-bottom: 4px;
   font-size: 16px;
   line-height: 24px;
   color: #000000;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: ${mobileVersion}) {
     margin-bottom: 4px;
     font-size: 16px;
     line-height: 24px;
@@ -263,9 +270,9 @@ export const FormNewArtInput = styled.input`
     line-height: 24px;
     color: #0000004d;
   }
-  @media screen and (max-width: 600px) {
-    width: 100%;
-    padding: 9px 17px;
+  @media screen and (max-width: ${mobileVersion}) {
+    // width: 100%;
+    // padding: 9px 17px;
     background: #ffffff;
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 30px;
@@ -334,11 +341,10 @@ export const FormNewArtArea = styled.textarea`
     line-height: 24px;
     color: #0000004d;
   }
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: ${mobileVersion}) {
     font-family: 'Roboto', sans-serif;
     width: 100%;
     max-height: 107px;
-    padding: 9px 17px;
     background: #ffffff;
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 30px;
@@ -371,11 +377,10 @@ export const FormNewArtP = styled.p`
   line-height: 24px;
   color: #000000;
   margin-bottom: 10px;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: ${mobileVersion}) {
     font-size: 16px;
     line-height: 24px;
     color: #000000;
-    margin-bottom: 10px;
     &:span {
       margin-left: 10px;
       color: rgba(0, 0, 0, 0.3);
@@ -385,11 +390,11 @@ export const FormNewArtP = styled.p`
 export const FormNewArtSpan = styled.span`
   margin-left: 10px;
   color: rgba(0, 0, 0, 0.3);
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: ${mobileVersion}) {
     display: block;
     margin-left: 0px;
     margin-bottom: 9px;
-    margin-top: -9px;
+    margin-top: -5px;
     color: rgba(0, 0, 0, 0.3);
   }
 `
@@ -409,7 +414,7 @@ export const FormNewArtBarImg = styled.div`
   justify-content: space-between;
   margin-bottom: 10px;
   overflow: hidden;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: ${mobileVersion}) {
     width: 100%;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -466,7 +471,7 @@ export const FormNewArtImg = styled.div`
   margin-right: 10px;
   position: relative;
   z-index: 0;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: ${mobileVersion}) {
     display: block;
     width: 100px;
     min-width: 90px;
@@ -482,7 +487,7 @@ export const FormNewArtImgImg = styled.img`
   -o-object-fit: cover;
   object-fit: cover;
   z-index: 2;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: ${mobileVersion}) {
     display: block;
     width: 100%;
     height: auto;
@@ -490,7 +495,11 @@ export const FormNewArtImgImg = styled.img`
     object-fit: cover;
   }
 `
-export const FormNewArtiLabel = styled.label``
+export const FormNewArtiLabel = styled.p`
+  @media screen and (max-width: ${mobileVersion}) {
+    padding-bottom: 0px;
+  }
+`
 export const FormNewArtInputPrice = styled.input`
   width: 200px;
   color: #000000;
@@ -534,13 +543,13 @@ export const FormNewArtInputPrice = styled.input`
     line-height: 24px;
     color: #000000;
   }
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: ${mobileVersion}) {
     width: 100%;
-    padding: 9px 17px;
+    padding: 9px 15px;
     background: #ffffff;
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 30px;
-    font-size: 16px;
+    font-size: 15px;
     line-height: 1;
     &::-webkit-input-placeholder {
       font-size: 14px;
@@ -585,9 +594,9 @@ background-color: #FFFFFF;
   color: #000000;
   z-index: 2;
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: ${mobileVersion}) {
   width: 100%;
-  height: 21px;
+  height: 18px;
   font-size: 14px;
   line-height: 21px;
   bottom: 9px;
@@ -608,7 +617,7 @@ export const FormNewArtBtnPub = styled.button`
   &:hover {
     background-color: #0080c1;
   }
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: ${mobileVersion}) {
     margin-top: 10px;
     width: 100%;
     height: 46px;
@@ -617,13 +626,11 @@ export const FormNewArtBtnPub = styled.button`
     }
   }
 `
-export const FormNewArtImgImg2 =styled.img`
-    width: 90px;
-    height: 90px;
+export const FormNewArtImgImg2 = styled.img`
+  width: 90px;
+  height: 90px;
 `
-export const DeleteImageBtnDiv = styled.div`
- 
-`;
+export const DeleteImageBtnDiv = styled.div``
 
 export const DeleteImageBtn = styled.button`
   position: absolute;
@@ -639,5 +646,7 @@ export const DeleteImageBtn = styled.button`
   &:hover {
     scale: 1.1;
   }
-  
+`
+export const ErrorDiv = styled.div`
+  color: red;
 `

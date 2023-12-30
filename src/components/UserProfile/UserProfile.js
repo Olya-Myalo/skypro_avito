@@ -6,21 +6,22 @@ import {
 import MainMenu from '../MainMenu/MainMenu'
 import * as S from './UserProfile.styled'
 
-const UserProfile = ({ infoUser }) => {
+const UserProfile = ({ user }) => {
   const [UpdateUser] = useUserUpdateMutation()
   const [userData, setUserData] = useState({
-    name: infoUser?.name,
-    surname: infoUser?.surname,
-    city: infoUser?.city,
-    phone: infoUser?.phone,
+    name: user?.name,
+    surname: user?.surname,
+    city: user?.city,
+    phone: user?.phone,
   })
   const [changeAvatar] = useChangeAvatarMutation()
   const [avatarUrl, setAvatarUrl] = useState('')
+  const [error, setError] = useState('')
 
   useEffect(() => {
     avatarUrl === null
       ? setAvatarUrl('../img/profileImg.jpg')
-      : setAvatarUrl(`http://localhost:8090/${infoUser?.avatar}`)
+      : setAvatarUrl(`http://localhost:8090/${user?.avatar}`)
   }, [userData])
 
   const handleInputChange = (e) => {
@@ -32,33 +33,28 @@ const UserProfile = ({ infoUser }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log(userData)
     try {
       const updatedData = await UpdateUser(userData).unwrap()
       console.log('Пользователь успешно обновлен', updatedData)
     } catch (error) {
-      console.error('Ошибка при обновлении пользователя', error)
+      setError(error.message)
     }
   }
 
-  const handleImageChange = (event) => {
-    let file = event.target.files?.[0]
-    if (file) {
-      setAvatarUrl(file)
-      const reader = new FileReader()
-      reader.onload = function () {
-        fetch(reader.result)
-          .then((res) => res.blob())
-          .then((blob) => {
-            const formData = new FormData()
-            formData.append('file', blob, 'img.gpg')
-            return changeAvatar(formData)
-          })
-          .then((user) => {
-            setUserData(user.data)
-          })
-      }
-      reader.readAsDataURL(file)
+  const handleAvatarChange = async (event) => {
+    event.preventDefault()
+    const selectedAvatar = event.target.files[0]
+    if (!selectedAvatar) {
+      setError('Файл не выбран')
+      return
+    }
+    try {
+      const formData = new FormData()
+      formData.append('file', selectedAvatar)
+      await changeAvatar(formData)
+      setAvatarUrl(URL.createObjectURL(selectedAvatar))
+    } catch (error) {
+      setError(error.message)
     }
   }
 
@@ -72,12 +68,13 @@ const UserProfile = ({ infoUser }) => {
           <S.ProfileSettings>
             <S.SettingsLeft action="#">
               <S.SettingImgImg alt="" src={avatarUrl} />
+              <S.ErrorDiv>{error}</S.ErrorDiv>
               <S.SettingsChangePhoto>
                 Заменить
                 <input
                   type="file"
                   hidden
-                  onChange={(e) => handleImageChange(e)}
+                  onChange={(e) => handleAvatarChange(e)}
                 />
               </S.SettingsChangePhoto>
             </S.SettingsLeft>
@@ -127,6 +124,7 @@ const UserProfile = ({ infoUser }) => {
                     placeholder="+79161234567"
                   />
                 </S.SettingsDiv>
+                <S.ErrorDiv>{error}</S.ErrorDiv>
                 <S.SettingBtn id="settings-btn" type="submit">
                   Сохранить
                 </S.SettingBtn>

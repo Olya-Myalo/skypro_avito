@@ -1,17 +1,17 @@
 import styled from 'styled-components'
-const maxMobileWidth = '890px'
-const maxMobileWidthTwo = '620px'
+const maxMobile = '890px'
+const mobileVersion = '620px'
 
 export const MainCenterBlock = styled.div`
   margin: 0 auto;
   padding: 0 20px;
 
-  @media screen and (max-width: ${maxMobileWidth}) {
+  @media screen and (max-width: ${maxMobile}) {
     margin: 0 auto;
     padding: 0 20px;
   }
 
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     margin: 0 auto;
     padding: 0 20px;
   }
@@ -24,7 +24,7 @@ export const MainH2 = styled.h2`
   color: #000000;
   margin-bottom: 30px;
 
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     font-size: 24px;
     line-height: 29px;
     color: #000000;
@@ -34,7 +34,7 @@ export const MainH2 = styled.h2`
 export const MainProlile = styled.div`
   width: 100%;
   padding: 0 0 70px;
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     width: 100%;
     padding: 0 0 40px;
   }
@@ -43,7 +43,7 @@ export const MainProlile = styled.div`
 export const ProfileContent = styled.div`
   max-width: 834px;
 
-  @media screen and (max-width: ${maxMobileWidth}) {
+  @media screen and (max-width: ${maxMobile}) {
     max-width: 834px;
     width: 100%;
   }
@@ -55,7 +55,7 @@ export const ProfileTitle = styled.h3`
   color: #000000;
   margin-bottom: 20px;
 
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     margin-bottom: 20px;
     font-size: 18px;
     line-height: 1;
@@ -66,7 +66,7 @@ export const ProfileSettings = styled.div`
   display: flex;
   align-items: top;
   justify-content: center;
-  @media screen and (max-width: ${maxMobileWidth}) {
+  @media screen and (max-width: ${maxMobile}) {
     flex-wrap: wrap;
   }
 `
@@ -76,7 +76,7 @@ export const SettingsLeft = styled.form`
   align-items: center;
   margin-right: 43px;
 
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -90,7 +90,7 @@ export const SettingsImg = styled.div`
   border-radius: 50%;
   background-color: #f0f0f0;
 
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     width: 132px;
     height: 132px;
   }
@@ -104,7 +104,7 @@ export const SettingImgImg = styled.img`
   display: block;
   -o-object-fit: cover;
   object-fit: cover;
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     width: 132px;
     height: 132px;
     display: block;
@@ -124,7 +124,7 @@ export const SettingsChangePhoto = styled.label`
 export const SettingsRight = styled.div`
   width: 630px;
 
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     width: 100%;
   }
 `
@@ -132,7 +132,7 @@ export const SettingForm = styled.form`
   width: 630px;
   display: flex;
   flex-wrap: wrap;
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -141,7 +141,7 @@ export const SettingForm = styled.form`
 export const SettingsDiv = styled.div`
   display: inline-block;
   margin: 0 7px 20px;
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${maxMobile}) {
     display: inline-block;
     margin: 0 0px 18px;
   }
@@ -155,7 +155,7 @@ export const Label = styled.label`
   margin-bottom: 4px;
   display: block;
 
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     font-size: 14px;
     line-height: 21px;
     color: #c4c4c4;
@@ -185,7 +185,7 @@ export const SettingInput = styled.input`
     font-size: 16px;
     line-height: 24px;
   }
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     border-radius: 30px;
     padding: 9px 17px;
     &::-moz-placeholder {
@@ -200,13 +200,13 @@ export const SettingInput = styled.input`
 `
 export const SettingInputAll = styled(SettingInput)`
   width: 300px;
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     width: 100%;
   }
 `
 export const SettingInputPhone = styled(SettingInput)`
   width: 614px;
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     width: 100%;
   }
 `
@@ -225,7 +225,7 @@ border: 1px solid #009EE4;
 &:hover {
   background-color: #0080C1;
 
-@media screen and (max-width: ${maxMobileWidthTwo}) {
+@media screen and (max-width: ${mobileVersion}) {
   font-size: 16px;
   line-height: 1;
   width: 100%;
@@ -236,7 +236,10 @@ border: 1px solid #009EE4;
 `
 export const MainTitle = styled.h3`
   margin-bottom: 20px;
-  @media screen and (max-width: ${maxMobileWidthTwo}) {
+  @media screen and (max-width: ${mobileVersion}) {
     margin-bottom: 30px;
   }
+`
+export const ErrorDiv = styled.div`
+  color: red;
 `
