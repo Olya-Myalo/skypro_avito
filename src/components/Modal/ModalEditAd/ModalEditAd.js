@@ -47,7 +47,7 @@ export const ModalEditAd = ({ data, onClose }) => {
       }
       console.log(result)
     } catch (error) {
-      console.log(error)
+      setError(error.message)
     }
   }
 
