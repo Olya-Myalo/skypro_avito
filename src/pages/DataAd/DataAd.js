@@ -19,21 +19,21 @@ import Loader from '../../components/Loader/Loader'
 const DataAd = () => {
   const navigate = useNavigate()
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [isModalOpenComments, setIsModalOpenComments] = useState(false)
-  const [adComments, setAdComments] = useState([])
+  const [isModalOpenFeedback, setIsModalOpenFeedback] = useState(false)
+  const [adFeedback, setAdFeedback] = useState([])
   const [deleted, setDeleted] = useState(false)
   const [isImage, setIsImage] = useState(0)
   const { adId } = useParams()
-  const { data: advComments } = useGetAllCurrentUserCommentsQuery(adId)
+  const { data: advFeedback } = useGetAllCurrentUserCommentsQuery(adId)
   const { data, isLoading } = useGetAdsIdQuery(adId)
   const { data: user } = useGetСurrentUserQuery()
   const [DeleteAd] = useDelAdMutation(adId)
 
   useEffect(() => {
-    if (advComments) {
-      setAdComments(advComments)
+    if (advFeedback) {
+      setAdFeedback(advFeedback)
     }
-  }, [advComments])
+  }, [advFeedback])
 
   const openModal = () => {
     setIsModalOpen(true)
@@ -94,16 +94,8 @@ const DataAd = () => {
                     </S.ArticleImgBarDiv>
                   ))}
               </S.ArticleImgBar>
-              <S.ArticleImgBarMob>
-                <S.ImgBarMobCircleActive />
-                <S.ImgBarMobCircle />
-                <S.ImgBarMobCircle />
-                <S.ImgBarMobCircle />
-                <S.ImgBarMobCircle />
-              </S.ArticleImgBarMob>
             </S.ArticleFillImg>
           </S.ArticleLeft>
-
           <S.ArticleRight>
             <S.ArticleBlock>
               <S.ArticleTitle>{data.title}</S.ArticleTitle>
@@ -115,13 +107,13 @@ const DataAd = () => {
                 <S.ArticleLink
                   onClick={(e) => {
                     e.preventDefault()
-                    setIsModalOpenComments(true)
+                    setIsModalOpenFeedback(true)
                   }}
                   href=""
                   target="_blank"
                   rel=""
                 >
-                  Отзывы: {adComments ? adComments.length : 'нет отзывов'}
+                  Отзывы: {adFeedback ? adFeedback.length : 'нет отзывов'}
                 </S.ArticleLink>
               </S.ArticleInfo>
               <S.ArticlePrice>{data.price} ₽</S.ArticlePrice>
@@ -135,7 +127,7 @@ const DataAd = () => {
                     onClick={removeFromPublication}
                     disabled={deleted}
                   >
-                    {deleted ? 'Удалено' : 'Снять с публикации'}
+                    Снять с публикации
                   </S.ArticleBtnRemove>
                 </S.ArticleBtnBlock>
               ) : (
@@ -144,7 +136,7 @@ const DataAd = () => {
 
               <S.ArticleAuthor>
                 <S.AuthorImg
-                  alt=""
+                  alt="avatar"
                   src={`http://127.0.0.1:8090/${data?.user.avatar}`}
                 />
                 <S.AuthorCont>
@@ -167,17 +159,16 @@ const DataAd = () => {
           </S.ArticleRight>
         </S.ArticContent>
       </S.MainArtic>
-
       <S.MainContainer>
         <S.MainTitle>Описание товара</S.MainTitle>
         <S.MainContent>
           <S.MainText>{data.description ? data.description : 'нет описания товара' }</S.MainText>
         </S.MainContent>
       </S.MainContainer>
-      {isModalOpenComments && (
+      {isModalOpenFeedback && (
         <ModalFeedback
-          onClose={() => setIsModalOpenComments(false)}
-          comments={advComments}
+          onClose={() => setIsModalOpenFeedback(false)}
+          feedback={advFeedback}
           advId={adId}
         />
       )}

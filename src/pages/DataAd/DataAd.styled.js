@@ -108,7 +108,6 @@ export const ArticleImg = styled.div`
     margin: 0 0px;
   }
 `
-
 export const ArticleImgImg = styled.img`
   width: 100%;
   height: 480px;
@@ -120,8 +119,12 @@ export const ArticleImgImg = styled.img`
   &.selected {
     border: 2px solid #009ee4;
   }
+  @media screen and (max-width: ${mobileVersion}) {
+    width: 320px;
+    height: 320px;
+    flex-shrink: 0;
+  }
 `
-
 export const ArticleImgBar = styled.div`
   margin-top: 30px;
   width: 490px;
@@ -130,12 +133,13 @@ export const ArticleImgBar = styled.div`
   align-items: center;
   justify-content: left;
   overflow: hidden;
-  margin-left: -5px;
 
   @media screen and (max-width: ${mobileVersion}) {
-    display: none;
+    margin-left: 200px;
+    overflow-x: auto;
+    flex-wrap: nowrap;
   }
-`
+`;
 
 export const ArticleImgBarDiv = styled.div`
   width: 88px;
@@ -143,7 +147,6 @@ export const ArticleImgBarDiv = styled.div`
   height: 88px;
   background-color: #f0f0f0;
   border: 2px solid #f0f0f0;
-  margin: 0 5px;
 
   &:hover {
     border: 2px solid #009ee4;
@@ -155,36 +158,8 @@ export const ArticleImgBarDivImg = styled.img`
   display: block;
   -o-object-fit: cover;
   object-fit: cover;
-`
-
-export const ArticleImgBarMob = styled.div`
-  display: none;
   @media screen and (max-width: ${mobileVersion}) {
-    display: block;
-    width: 68px;
-    height: 8px;
-    position: absolute;
-    bottom: 20px;
-    left: calc(50% - 34px);
-    display: flex;
-    justify-content: space-between;
-  }
-`
-
-export const ImgBarMobCircle = styled.div`
-  background-color: #ffffff;
-
-  @media screen and (max-width: ${mobileVersion}) {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    border: 1px solid #ffffff;
-  }
-`
-
-export const ImgBarMobCircleActive = styled(ImgBarMobCircle)`
-  &:active {
-    background-color: #ffffff;
+    display: inline-block;
   }
 `
 
