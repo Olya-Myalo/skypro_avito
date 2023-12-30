@@ -392,17 +392,12 @@ export const ReviewLeft = styled.div`
   margin-right: 12px;
 `
 
-export const ReviewImg = styled.div`
+export const ReviewImg = styled.img`
+  display: block;
   width: 40px;
   height: 40px;
   border-radius: 50%;
   background-color: #f0f0f0;
-`
-
-export const ReviewImgImg = styled.img`
-  display: block;
-  width: 100%;
-  height: auto;
   -o-object-fit: cover;
   object-fit: cover;
 `

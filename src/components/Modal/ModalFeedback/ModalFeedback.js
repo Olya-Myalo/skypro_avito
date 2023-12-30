@@ -7,11 +7,11 @@ import * as S from './ModalFeedback.styled'
 import { useSelector } from 'react-redux'
 import { formatDateTime } from '../../../utils/formatDate'
 
-export const ModalFeedback = ({ comments, onClose }) => {
+export const ModalFeedback = ({ feedback, onClose }) => {
   const modalRef = useRef(null)
   const { adId } = useParams()
-  const token = useSelector((state) => state.user.access)
-  const [addFeedback, { isLoading }] = useAddCommentMutation(adId)
+  const Authorization = useSelector((state) => state.user.access)
+  const [addFeedback] = useAddCommentMutation(adId)
   const [newFeedback, setNewFeedback] = useState('')
   const [error, setError] = useState(null)
 
@@ -21,10 +21,10 @@ export const ModalFeedback = ({ comments, onClose }) => {
         onClose()
       }
     }
-    document.addEventListener('mousedown', handleClick)
+    document.addEventListener('modal', handleClick)
 
     return () => {
-      document.removeEventListener('mousedown', handleClick)
+      document.removeEventListener('modal', handleClick)
     }
   }, [onClose])
 
@@ -54,8 +54,8 @@ export const ModalFeedback = ({ comments, onClose }) => {
             <S.ModalScroll>
               {error && <S.Error>{error}</S.Error>}
               <S.ModalFormNewArt>
-                {!token ? (
-                  ''
+                {!Authorization ? (
+                  null
                 ) : (
                   <S.FormNewArtBlock>
                     <S.FormNewArtLabel for="text">
@@ -66,39 +66,36 @@ export const ModalFeedback = ({ comments, onClose }) => {
                       id="formArea"
                       cols="auto"
                       rows="5"
-                      placeholder="Введите описание"
+                      placeholder="Введите отзыв"
                       value={newFeedback}
                       onChange={(e) => setNewFeedback(e.target.value)}
                     ></S.FormNewArtArea>
                   </S.FormNewArtBlock>
                 )}
-                {!token ? (
-                  ''
+                {!Authorization ? (
+                  null
                 ) : (
                   <S.FormNewArtBtnPub
                     onClick={handleAddComment}
                     disabled={!newFeedback}
                   >
-                    {isLoading ? 'Публикация...' : 'Опубликовать'}
+                    Опубликовать
                   </S.FormNewArtBtnPub>
                 )}
               </S.ModalFormNewArt>
               <S.ModalReviews>
                 <S.ReviewsReview>
-                  {comments
-                    ? comments.map((comment, index) => (
+                  {feedback
+                    ? feedback.map((comment, index) => (
                         <S.ReviewItem key={index}>
                           <S.ReviewLeft>
-                            <S.ReviewImg>
-                              <S.ReviewImgImg
+                              <S.ReviewImg
                                 src={`http://localhost:8090/${comment.author.avatar}`}
                                 alt="avatar"
                               />
-                            </S.ReviewImg>
                           </S.ReviewLeft>
                           <S.ReviewRight>
                             <S.ReviewName>
-                              {' '}
                               {comment.author.name}
                               <S.ReviewNameSpan>
                                 {formatDateTime(comment.created_on)}
@@ -109,7 +106,7 @@ export const ModalFeedback = ({ comments, onClose }) => {
                           </S.ReviewRight>
                         </S.ReviewItem>
                       ))
-                    : ''}
+                    : null}
                 </S.ReviewsReview>
               </S.ModalReviews>
             </S.ModalScroll>
