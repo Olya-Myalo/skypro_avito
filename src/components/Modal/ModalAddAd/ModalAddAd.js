@@ -4,8 +4,10 @@ import {
   useAddImgAdMutation,
 } from '../../../store/Service/serviceQuery'
 import * as S from './ModalAddAd.styled'
+import { useNavigate } from 'react-router-dom'
 
 export const ModalAddAd = ({ data, onClose }) => {
+  const navigate = useNavigate()
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [price, setPrice] = useState('')
@@ -126,6 +128,7 @@ export const ModalAddAd = ({ data, onClose }) => {
               onClick={() => {
                 createAd()
                 onClose()
+                navigate('/profile')
               }}
               id="btnPublish"
             >

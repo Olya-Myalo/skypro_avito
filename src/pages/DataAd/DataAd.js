@@ -7,7 +7,7 @@ import {
   useGetСurrentUserQuery,
 } from '../../store/Service/serviceQuery'
 import MainMenu from '../../components/MainMenu/MainMenu'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { ModalFeedback } from '../../components/Modal/ModalFeedback/ModalFeedback'
 import { formatDateAndTime } from '../../utils/formatDate'
 import { formatDate } from '../../utils/formatDate'
@@ -18,9 +18,8 @@ import Loader from '../../components/Loader/Loader'
 
 const DataAd = () => {
   const navigate = useNavigate()
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isModalOpenEditAd, setIsModalOpenEditAd] = useState(false)
   const [isModalOpenFeedback, setIsModalOpenFeedback] = useState(false)
-  const [adFeedback, setAdFeedback] = useState([])
   const [deleted, setDeleted] = useState(false)
   const [isImage, setIsImage] = useState(0)
   const { adId } = useParams()
@@ -29,21 +28,15 @@ const DataAd = () => {
   const { data: user } = useGetСurrentUserQuery()
   const [DeleteAd] = useDelAdMutation(adId)
 
-  useEffect(() => {
-    if (advFeedback) {
-      setAdFeedback(advFeedback)
-    }
-  }, [advFeedback])
-
   const openModal = () => {
-    setIsModalOpen(true)
+    setIsModalOpenEditAd(true)
   }
 
   const closeModal = () => {
-    setIsModalOpen(false)
+    setIsModalOpenEditAd(false)
   }
 
-  const imagesUrl = data?.images?.map(
+  const imagesUrl = data?.images.map(
     (image) => `http://127.0.0.1:8090/${image.url}`
   )
 
@@ -53,15 +46,15 @@ const DataAd = () => {
 
   if (isLoading || !data) return <Loader />
 
-  let showInput = false
+  let showUserdata = false
   if (data.user.id === parseInt(user?.id, 10)) {
-    showInput = true
+    showUserdata = true
   }
 
   const removeFromPublication = async () => {
     setDeleted(true)
-    DeleteAd({ adId: adId })
-    navigate('/')
+    await DeleteAd({ adId: adId })
+    navigate('/profile')
   }
 
   return (
@@ -113,11 +106,11 @@ const DataAd = () => {
                   target="_blank"
                   rel=""
                 >
-                  Отзывы: {adFeedback ? adFeedback.length : 'нет отзывов'}
+                  Отзывы: {advFeedback ? advFeedback.length : 'нет отзывов'}
                 </S.ArticleLink>
               </S.ArticleInfo>
               <S.ArticlePrice>{data.price} ₽</S.ArticlePrice>
-              {showInput ? (
+              {showUserdata ? (
                 <S.ArticleBtnBlock>
                   <S.ArticleBtnReact onClick={openModal}>
                     Редактировать
@@ -172,7 +165,7 @@ const DataAd = () => {
           advId={adId}
         />
       )}
-      {isModalOpen && <ModalEditAd data={data} onClose={closeModal} />}
+      {isModalOpenEditAd && <ModalEditAd data={data} onClose={closeModal} />}
     </S.Main>
   )
 }
