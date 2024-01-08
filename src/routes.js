@@ -9,21 +9,21 @@ import { ProtectedRoute } from './components/ProtectedRoute'
 import { NotFound } from './pages/NotFound'
 import { PageLayout } from './pages/PageLayot'
 
-const AppRoutes = ({ user, setUser }) => {
+const AppRoutes = () => {
   return (
     <Routes>
-      <Route path="/signup" element={<Signup setUser={setUser} />} />
-      <Route path="/signin" element={<Signin setUser={setUser} />} />
+      <Route path="/signup" element={<Signup />} />
+      <Route path="/signin" element={<Signin />} />
       <Route path="/" element={<PageLayout />}>
-        <Route path="/" element={<Main user={user} />} />
-        <Route path="/ad/:adId" Component={DataAd} />
-        <Route path="/sellerProfile/:id" Component={SellerProfile} />
+        <Route index element={<Main />} />
+        <Route path="/ad/:adId" element={<DataAd />} />
+        <Route path="/sellerProfile/:id" element={<SellerProfile />} />
       </Route>
       <Route element={<ProtectedRoute />}>
-        <Route exact path="/profile" Component={Profile} />
-        <Route exact path="*" Component={<NotFound />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="*" element={<NotFound />} />
       </Route>
-      <Route exact path="*" Component={<NotFound />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   )
 }
